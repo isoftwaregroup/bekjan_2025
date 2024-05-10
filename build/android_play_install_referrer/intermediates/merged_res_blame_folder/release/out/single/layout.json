@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "de.lschmierer.android_play_install_referrer-merged_res-10:/layout/notification_action.xml",
+        "source": "de.lschmierer.android_play_install_referrer-core-1.6.0-1:/layout/notification_action.xml"
+    },
+    {
+        "merged": "de.lschmierer.android_play_install_referrer-merged_res-10:/layout/notification_template_part_chronometer.xml",
+        "source": "de.lschmierer.android_play_install_referrer-core-1.6.0-1:/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "de.lschmierer.android_play_install_referrer-merged_res-10:/layout/notification_action_tombstone.xml",
+        "source": "de.lschmierer.android_play_install_referrer-core-1.6.0-1:/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "de.lschmierer.android_play_install_referrer-merged_res-10:/layout/custom_dialog.xml",
+        "source": "de.lschmierer.android_play_install_referrer-core-1.6.0-1:/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "de.lschmierer.android_play_install_referrer-merged_res-10:/layout/notification_template_part_time.xml",
+        "source": "de.lschmierer.android_play_install_referrer-core-1.6.0-1:/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "de.lschmierer.android_play_install_referrer-merged_res-10:/layout/notification_template_icon_group.xml",
+        "source": "de.lschmierer.android_play_install_referrer-core-1.6.0-1:/layout/notification_template_icon_group.xml"
+    }
+]

@@ -1,0 +1,309 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="uz.Insoft.bekjan"
+4    android:versionCode="8"
+5    android:versionName="1.0.7" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="34" />
+9-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+11-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:2:5-79
+11-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:2:22-76
+12    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+12-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:3:5-81
+12-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:3:22-78
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:4:5-66
+13-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:4:22-64
+14    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+14-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:5:5-95
+14-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:5:23-93
+15    <!--
+16         Required to query activities that can process text, see:
+17         https://developer.android.com/training/package-visibility?hl=en and
+18         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+19
+20         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+21    -->
+22    <queries>
+22-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:39:5-44:15
+23        <intent>
+23-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:40:9-43:18
+24            <action android:name="android.intent.action.PROCESS_TEXT" />
+24-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:41:13-72
+24-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:41:21-70
+25
+26            <data android:mimeType="text/plain" />
+26-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:42:13-50
+26-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:42:19-48
+27        </intent>
+28    </queries>
+29
+30    <uses-permission android:name="android.permission.VIBRATE" />
+30-->[:flutter_local_notifications] /Users/bunyodbek/StudioProjects/bekjan/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:9:5-66
+30-->[:flutter_local_notifications] /Users/bunyodbek/StudioProjects/bekjan/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:9:22-63
+31    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+31-->[:flutter_local_notifications] /Users/bunyodbek/StudioProjects/bekjan/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:10:5-77
+31-->[:flutter_local_notifications] /Users/bunyodbek/StudioProjects/bekjan/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:10:22-74
+32    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+32-->[:connectivity_plus] /Users/bunyodbek/StudioProjects/bekjan/build/connectivity_plus/intermediates/merged_manifest/release/AndroidManifest.xml:9:5-79
+32-->[:connectivity_plus] /Users/bunyodbek/StudioProjects/bekjan/build/connectivity_plus/intermediates/merged_manifest/release/AndroidManifest.xml:9:22-76
+33
+34    <permission
+34-->[androidx.core:core:1.12.0] /Users/bunyodbek/.gradle/caches/transforms-3/6a195e926ff60aaded315bf5e6b37bba/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+35        android:name="uz.Insoft.bekjan.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+35-->[androidx.core:core:1.12.0] /Users/bunyodbek/.gradle/caches/transforms-3/6a195e926ff60aaded315bf5e6b37bba/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+36        android:protectionLevel="signature" />
+36-->[androidx.core:core:1.12.0] /Users/bunyodbek/.gradle/caches/transforms-3/6a195e926ff60aaded315bf5e6b37bba/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+37
+38    <uses-permission android:name="uz.Insoft.bekjan.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+38-->[androidx.core:core:1.12.0] /Users/bunyodbek/.gradle/caches/transforms-3/6a195e926ff60aaded315bf5e6b37bba/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+38-->[androidx.core:core:1.12.0] /Users/bunyodbek/.gradle/caches/transforms-3/6a195e926ff60aaded315bf5e6b37bba/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+39    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+39-->[com.android.installreferrer:installreferrer:2.2] /Users/bunyodbek/.gradle/caches/transforms-3/4fae5d8fe76e0e7d573d93541d538f71/transformed/jetified-installreferrer-2.2/AndroidManifest.xml:9:5-110
+39-->[com.android.installreferrer:installreferrer:2.2] /Users/bunyodbek/.gradle/caches/transforms-3/4fae5d8fe76e0e7d573d93541d538f71/transformed/jetified-installreferrer-2.2/AndroidManifest.xml:9:22-107
+40
+41    <application
+42        android:name="android.app.Application"
+42-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:8:9-42
+43        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+43-->[androidx.core:core:1.12.0] /Users/bunyodbek/.gradle/caches/transforms-3/6a195e926ff60aaded315bf5e6b37bba/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+44        android:icon="@mipmap/ic_launcher"
+44-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:9:9-43
+45        android:label="Bekjaan Taxi" >
+45-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:7:9-37
+46        <activity
+46-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:10:9-27:20
+47            android:name="com.example.bekjan.MainActivity"
+47-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:11:13-41
+48            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+48-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:15:13-163
+49            android:exported="true"
+49-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:12:13-36
+50            android:hardwareAccelerated="true"
+50-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:16:13-47
+51            android:launchMode="singleTop"
+51-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:13:13-43
+52            android:theme="@style/LaunchTheme"
+52-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:14:13-47
+53            android:windowSoftInputMode="adjustResize" >
+53-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:17:13-55
+54            <meta-data
+54-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:19:13-22:17
+55                android:name="io.flutter.embedding.android.NormalTheme"
+55-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:20:15-70
+56                android:resource="@style/NormalTheme" />
+56-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:21:15-52
+57
+58            <intent-filter>
+58-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:23:13-26:29
+59                <action android:name="android.intent.action.MAIN" />
+59-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:24:17-68
+59-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:24:25-66
+60
+61                <category android:name="android.intent.category.LAUNCHER" />
+61-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:25:17-76
+61-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:25:27-74
+62            </intent-filter>
+63        </activity>
+64        <!--
+65             Don't delete the meta-data below.
+66             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+67        -->
+68        <meta-data
+68-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:30:9-32:33
+69            android:name="flutterEmbedding"
+69-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:31:13-44
+70            android:value="2" />
+70-->/Users/bunyodbek/StudioProjects/bekjan/android/app/src/main/AndroidManifest.xml:32:13-30
+71
+72        <provider
+72-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:10:9-18:20
+73            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+73-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-82
+74            android:authorities="uz.Insoft.bekjan.flutter.image_provider"
+74-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:12:13-74
+75            android:exported="false"
+75-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-37
+76            android:grantUriPermissions="true" >
+76-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:14:13-47
+77            <meta-data
+77-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:15:13-17:75
+78                android:name="android.support.FILE_PROVIDER_PATHS"
+78-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:16:17-67
+79                android:resource="@xml/flutter_image_picker_file_paths" />
+79-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:17:17-72
+80        </provider>
+81
+82        <activity
+82-->[:url_launcher_android] /Users/bunyodbek/StudioProjects/bekjan/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:10:9-13:74
+83            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+83-->[:url_launcher_android] /Users/bunyodbek/StudioProjects/bekjan/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-74
+84            android:exported="false"
+84-->[:url_launcher_android] /Users/bunyodbek/StudioProjects/bekjan/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:12:13-37
+85            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+85-->[:url_launcher_android] /Users/bunyodbek/StudioProjects/bekjan/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-71
+86        <!--
+87           Declares a provider which allows us to store files to share in
+88           '.../caches/share_plus' and grant the receiving action access
+89        -->
+90        <provider
+90-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:15:9-23:20
+91            android:name="dev.fluttercommunity.plus.share.ShareFileProvider"
+91-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-77
+92            android:authorities="uz.Insoft.bekjan.flutter.share_provider"
+92-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-74
+93            android:exported="false"
+93-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:18:13-37
+94            android:grantUriPermissions="true" >
+94-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:19:13-47
+95            <meta-data
+95-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:15:13-17:75
+96                android:name="android.support.FILE_PROVIDER_PATHS"
+96-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:16:17-67
+97                android:resource="@xml/flutter_share_file_paths" />
+97-->[:image_picker_android] /Users/bunyodbek/StudioProjects/bekjan/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:17:17-72
+98        </provider>
+99        <!--
+100           This manifest declared broadcast receiver allows us to use an explicit
+101           Intent when creating a PendingItent to be informed of the user's choice
+102        -->
+103        <receiver
+103-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:28:9-34:20
+104            android:name="dev.fluttercommunity.plus.share.SharePlusPendingIntent"
+104-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:29:13-82
+105            android:exported="false" >
+105-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:30:13-37
+106            <intent-filter>
+106-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:31:13-33:29
+107                <action android:name="EXTRA_CHOSEN_COMPONENT" />
+107-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:32:17-65
+107-->[:share_plus] /Users/bunyodbek/StudioProjects/bekjan/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:32:25-62
+108            </intent-filter>
+109        </receiver>
+110
+111        <service
+111-->[:location] /Users/bunyodbek/StudioProjects/bekjan/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:13:9-17:56
+112            android:name="com.lyokone.location.FlutterLocationService"
+112-->[:location] /Users/bunyodbek/StudioProjects/bekjan/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:14:13-71
+113            android:enabled="true"
+113-->[:location] /Users/bunyodbek/StudioProjects/bekjan/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:15:13-35
+114            android:exported="false"
+114-->[:location] /Users/bunyodbek/StudioProjects/bekjan/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-37
+115            android:foregroundServiceType="location" />
+115-->[:location] /Users/bunyodbek/StudioProjects/bekjan/build/location/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-53
+116
+117        <activity
+117-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:23:9-27:75
+118            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+118-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:24:13-93
+119            android:excludeFromRecents="true"
+119-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:25:13-46
+120            android:exported="false"
+120-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:26:13-37
+121            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+121-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:27:13-72
+122        <!--
+123            Service handling Google Sign-In user revocation. For apps that do not integrate with
+124            Google Sign-In, this service will never be started.
+125        -->
+126        <service
+126-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:33:9-37:51
+127            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+127-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:34:13-89
+128            android:exported="true"
+128-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:35:13-36
+129            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+129-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:36:13-107
+130            android:visibleToInstantApps="true" />
+130-->[com.google.android.gms:play-services-auth:20.7.0] /Users/bunyodbek/.gradle/caches/transforms-3/94c2418341b87efdd0f81291dd18f643/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:37:13-48
+131
+132        <activity
+132-->[com.google.android.gms:play-services-base:18.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/6789c3366e310ebb6636c62f412a0b7f/transformed/jetified-play-services-base-18.3.0/AndroidManifest.xml:20:9-22:45
+133            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+133-->[com.google.android.gms:play-services-base:18.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/6789c3366e310ebb6636c62f412a0b7f/transformed/jetified-play-services-base-18.3.0/AndroidManifest.xml:20:19-85
+134            android:exported="false"
+134-->[com.google.android.gms:play-services-base:18.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/6789c3366e310ebb6636c62f412a0b7f/transformed/jetified-play-services-base-18.3.0/AndroidManifest.xml:22:19-43
+135            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+135-->[com.google.android.gms:play-services-base:18.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/6789c3366e310ebb6636c62f412a0b7f/transformed/jetified-play-services-base-18.3.0/AndroidManifest.xml:21:19-78
+136
+137        <meta-data
+137-->[com.google.android.gms:play-services-basement:18.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/30f537fbbe1b3800f9deabf38b288bbd/transformed/jetified-play-services-basement-18.3.0/AndroidManifest.xml:21:9-23:69
+138            android:name="com.google.android.gms.version"
+138-->[com.google.android.gms:play-services-basement:18.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/30f537fbbe1b3800f9deabf38b288bbd/transformed/jetified-play-services-basement-18.3.0/AndroidManifest.xml:22:13-58
+139            android:value="@integer/google_play_services_version" />
+139-->[com.google.android.gms:play-services-basement:18.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/30f537fbbe1b3800f9deabf38b288bbd/transformed/jetified-play-services-basement-18.3.0/AndroidManifest.xml:23:13-66
+140
+141        <uses-library
+141-->[androidx.window:window:1.0.0-beta04] /Users/bunyodbek/.gradle/caches/transforms-3/ab5dd504f4e56ac05f77dbb791b8e7f4/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+142            android:name="androidx.window.extensions"
+142-->[androidx.window:window:1.0.0-beta04] /Users/bunyodbek/.gradle/caches/transforms-3/ab5dd504f4e56ac05f77dbb791b8e7f4/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+143            android:required="false" />
+143-->[androidx.window:window:1.0.0-beta04] /Users/bunyodbek/.gradle/caches/transforms-3/ab5dd504f4e56ac05f77dbb791b8e7f4/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+144        <uses-library
+144-->[androidx.window:window:1.0.0-beta04] /Users/bunyodbek/.gradle/caches/transforms-3/ab5dd504f4e56ac05f77dbb791b8e7f4/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+145            android:name="androidx.window.sidecar"
+145-->[androidx.window:window:1.0.0-beta04] /Users/bunyodbek/.gradle/caches/transforms-3/ab5dd504f4e56ac05f77dbb791b8e7f4/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+146            android:required="false" />
+146-->[androidx.window:window:1.0.0-beta04] /Users/bunyodbek/.gradle/caches/transforms-3/ab5dd504f4e56ac05f77dbb791b8e7f4/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+147
+148        <provider
+148-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:24:9-32:20
+149            android:name="androidx.startup.InitializationProvider"
+149-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:25:13-67
+150            android:authorities="uz.Insoft.bekjan.androidx-startup"
+150-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:26:13-68
+151            android:exported="false" >
+151-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:27:13-37
+152            <meta-data
+152-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+153                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+153-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+154                android:value="androidx.startup" />
+154-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+155        </provider>
+156
+157        <receiver
+157-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+158            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+158-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+159            android:directBootAware="false"
+159-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+160            android:enabled="true"
+160-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+161            android:exported="true"
+161-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+162            android:permission="android.permission.DUMP" >
+162-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+163            <intent-filter>
+163-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+164                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+164-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+164-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+165            </intent-filter>
+166            <intent-filter>
+166-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+167                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+167-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+167-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+168            </intent-filter>
+169            <intent-filter>
+169-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+170                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+170-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+170-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+171            </intent-filter>
+172            <intent-filter>
+172-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+173                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+173-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+173-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/bunyodbek/.gradle/caches/transforms-3/7b842537afab6e43a9a678ef2af06eaa/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+174            </intent-filter>
+175        </receiver>
+176    </application>
+177
+178</manifest>

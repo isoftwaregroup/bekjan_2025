@@ -1,0 +1,12 @@
+com.gb.optimize_battery-jetified-window-java-1.0.0-beta04-0 /Users/bunyodbek/.gradle/caches/transforms-3/19d3eab0cca4e718dbf6e2438abf60b9/transformed/jetified-window-java-1.0.0-beta04/res
+com.gb.optimize_battery-core-1.6.0-1 /Users/bunyodbek/.gradle/caches/transforms-3/256769c6aa44c79495da46a2ea6f7604/transformed/core-1.6.0/res
+com.gb.optimize_battery-jetified-window-1.0.0-beta04-2 /Users/bunyodbek/.gradle/caches/transforms-3/ab5dd504f4e56ac05f77dbb791b8e7f4/transformed/jetified-window-1.0.0-beta04/res
+com.gb.optimize_battery-jetified-annotation-experimental-1.1.0-3 /Users/bunyodbek/.gradle/caches/transforms-3/f87d72d108ba9195ae1ccacdbc1c6a96/transformed/jetified-annotation-experimental-1.1.0/res
+com.gb.optimize_battery-main-4 /Users/bunyodbek/.pub-cache/hosted/pub.dev/optimize_battery-0.0.4/android/src/main/res
+com.gb.optimize_battery-release-5 /Users/bunyodbek/.pub-cache/hosted/pub.dev/optimize_battery-0.0.4/android/src/release/res
+com.gb.optimize_battery-pngs-6 /Users/bunyodbek/StudioProjects/bekjan/build/optimize_battery/generated/res/pngs/release
+com.gb.optimize_battery-resValues-7 /Users/bunyodbek/StudioProjects/bekjan/build/optimize_battery/generated/res/resValues/release
+com.gb.optimize_battery-rs-8 /Users/bunyodbek/StudioProjects/bekjan/build/optimize_battery/generated/res/rs/release
+com.gb.optimize_battery-mergeReleaseResources-9 /Users/bunyodbek/StudioProjects/bekjan/build/optimize_battery/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.gb.optimize_battery-mergeReleaseResources-10 /Users/bunyodbek/StudioProjects/bekjan/build/optimize_battery/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.gb.optimize_battery-merged_res-11 /Users/bunyodbek/StudioProjects/bekjan/build/optimize_battery/intermediates/merged_res/release

@@ -1,0 +1,12 @@
+de.lschmierer.android_play_install_referrer-jetified-window-java-1.0.0-beta04-0 /Users/bunyodbek/.gradle/caches/transforms-3/19d3eab0cca4e718dbf6e2438abf60b9/transformed/jetified-window-java-1.0.0-beta04/res
+de.lschmierer.android_play_install_referrer-core-1.6.0-1 /Users/bunyodbek/.gradle/caches/transforms-3/256769c6aa44c79495da46a2ea6f7604/transformed/core-1.6.0/res
+de.lschmierer.android_play_install_referrer-jetified-window-1.0.0-beta04-2 /Users/bunyodbek/.gradle/caches/transforms-3/ab5dd504f4e56ac05f77dbb791b8e7f4/transformed/jetified-window-1.0.0-beta04/res
+de.lschmierer.android_play_install_referrer-jetified-annotation-experimental-1.1.0-3 /Users/bunyodbek/.gradle/caches/transforms-3/f87d72d108ba9195ae1ccacdbc1c6a96/transformed/jetified-annotation-experimental-1.1.0/res
+de.lschmierer.android_play_install_referrer-main-4 /Users/bunyodbek/.pub-cache/hosted/pub.dev/android_play_install_referrer-0.4.0/android/src/main/res
+de.lschmierer.android_play_install_referrer-release-5 /Users/bunyodbek/.pub-cache/hosted/pub.dev/android_play_install_referrer-0.4.0/android/src/release/res
+de.lschmierer.android_play_install_referrer-pngs-6 /Users/bunyodbek/StudioProjects/bekjan/build/android_play_install_referrer/generated/res/pngs/release
+de.lschmierer.android_play_install_referrer-resValues-7 /Users/bunyodbek/StudioProjects/bekjan/build/android_play_install_referrer/generated/res/resValues/release
+de.lschmierer.android_play_install_referrer-rs-8 /Users/bunyodbek/StudioProjects/bekjan/build/android_play_install_referrer/generated/res/rs/release
+de.lschmierer.android_play_install_referrer-mergeReleaseResources-9 /Users/bunyodbek/StudioProjects/bekjan/build/android_play_install_referrer/intermediates/incremental/release/mergeReleaseResources/merged.dir
+de.lschmierer.android_play_install_referrer-mergeReleaseResources-10 /Users/bunyodbek/StudioProjects/bekjan/build/android_play_install_referrer/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+de.lschmierer.android_play_install_referrer-merged_res-11 /Users/bunyodbek/StudioProjects/bekjan/build/android_play_install_referrer/intermediates/merged_res/release

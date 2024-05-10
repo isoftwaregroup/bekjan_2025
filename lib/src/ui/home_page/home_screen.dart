@@ -1,0 +1,321 @@
+import 'package:bekjan/src/helpers/dialogs.dart';
+import 'package:bekjan/src/helpers/widgets.dart';
+import 'package:bekjan/src/ui/account/account.dart';
+import 'package:bekjan/src/ui/account/provider.dart';
+import 'package:bekjan/src/ui/home_page/provider/home_provider.dart';
+import 'package:bekjan/src/ui/home_page/provider/map_provider.dart';
+import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
+import 'package:bekjan/src/ui/home_page/util.dart';
+import 'package:bekjan/src/ui/home_page/widgets/call_dispecher_screen.dart';
+import 'package:bekjan/src/ui/home_page/widgets/load_order.dart';
+import 'package:bekjan/src/ui/home_page/widgets/location_checker.dart';
+import 'package:bekjan/src/ui/home_page/widgets/map.dart';
+import 'package:bekjan/src/variables/icons.dart';
+import 'package:bekjan/src/variables/language.dart';
+import 'package:bekjan/src/widgets/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:pinput/pinput.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../helpers/ConnectionListner.dart';
+import '../../helpers/apptheme.dart';
+import '../../network/client.dart';
+import '../../network/http_result.dart';
+import '../../network/socket.dart';
+import '../../variables/links.dart';
+import '../../variables/util_variables.dart';
+import '../../widgets/Toast.dart';
+import 'dialog/bottom_dialog.dart';
+import 'dialog/bottom_tools_dialog.dart';
+import 'dialog/set_rating.dart';
+import 'models/order_model.dart';
+import 'provider/driver_provider.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int durationTime = -1, distance = 0;
+
+  @override
+  void initState() {
+    homeNotifier.homeContext = () {
+      return context;
+    };
+    if (mapNotifier.currentPosition != null) {
+      homeNotifier.setStreet(mapNotifier.currentPosition!).then((value) {
+        if (value != null) {
+          homeNotifier.whereController.text = value;
+          mapNotifier.currentPositionTitle = value;
+        }
+      });
+    }
+    checkStatus();
+    connectionListner.homeConnectionListner = (isConnected) {
+      isOnline = isConnected;
+      if (isOnline) {
+        setDispacherLink();
+      }
+    };
+    userNotifier.getAboutUs().then((value) {
+      PackageInfo.fromPlatform().then((packageInfo) {
+        if ((value?.version ?? 1) >
+            (int.tryParse(packageInfo.buildNumber) ?? 1)) {
+          showCenterdialog(
+            MessageDialog(
+              msg: newVersion.tr,
+              buttonTxt: update.tr,
+              onTap: () async {
+                if (!await launchUrl(
+                    Uri.parse(
+                        'https://play.google.com/store/apps/details?id=${packageInfo.packageName}'),
+                    mode: LaunchMode.externalApplication)) {
+                  throw 'Could not launch $num';
+                }
+              },
+            ),
+            context,
+          );
+        }
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    mapNotifier.mapController.dispose();
+    super.dispose();
+  }
+
+  ScrollPhysics physics = const AlwaysScrollableScrollPhysics();
+  @override
+  Widget build(BuildContext context) {
+    final b = MediaQuery.of(context).viewInsets.bottom;
+    if (bottom != b) {
+      bottom = b;
+      Future.delayed(const Duration(milliseconds: 10))
+          .then((value) => serviceCounter.update());
+    }
+    return Scaffold(
+      backgroundColor: theme.secondary,
+      resizeToAvoidBottomInset: false,
+      body: isOnline
+          ? Consumer(
+              builder: (context, ref, child) {
+                final notifier = ref.watch(homeProvider);
+                return PopScope(
+                  canPop: canPop(),
+                  onPopInvoked: (didPop) {
+                    if (canPop()) {
+                      return;
+                    }
+                    notifier.whereGoController.setText('');
+                    mapNotifier.markers.clear();
+                    notifier.isWhere = true;
+                    mapNotifier.route = Polyline(
+                      points: [],
+                      strokeWidth: 0,
+                      color: theme.blue,
+                    );
+                    serviceCounter.isWhereHide = null;
+                    mapNotifier.mapScrollstate.sink.add(false);
+                    mapNotifier.update();
+                    homeNotifier.update();
+                  },
+                  child: Stack(
+                    children: [
+                      const MapScreen(),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: SafeArea(
+                          child: GestureDetector(
+                            onTap: () => push(context, const AccountScreen()),
+                            child: StreamBuilder<bool>(
+                                stream: mapNotifier.mapScrollStream,
+                                builder: (context, snapshot) {
+                                  return AnimatedOpacity(
+                                    opacity: snapshot.data == true ? 0 : 1,
+                                    duration: const Duration(milliseconds: 250),
+                                    child: Container(
+                                      height: 36.o,
+                                      width: 36.o,
+                                      margin: EdgeInsets.only(
+                                          left: 12.o, top: 12.o),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8.o),
+                                          color: theme.mainBlue),
+                                      child: SvgPicture.asset(
+                                        svgIcon.menu,
+                                        width: 22.o,
+                                        height: 22.o,
+                                        colorFilter: const ColorFilter.mode(
+                                            Colors.white, BlendMode.srcIn),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                        ),
+                      ),
+                      if (notifier.conditionKey.isEmpty &&
+                          notifier.isWhere != null)
+                        const LocationChecker(),
+                      if (homeNotifier.conditionKey == 'order_initial')
+                        const LoadOrder(),
+                      if (homeNotifier.conditionKey.isEmpty)
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              GestureDetector(
+                                onTap: mapNotifier.moveToMyPosition,
+                                child: Container(
+                                  width: 50.o,
+                                  height: 50.o,
+                                  margin: EdgeInsets.only(
+                                    right: 12.o,
+                                    bottom: 15.o,
+                                  ),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25.o),
+                                    color: theme.mainBlue,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    svgIcon.geolocator,
+                                    height: 26.o,
+                                    width: 26.o,
+                                  ),
+                                ),
+                              ),
+                              BottomToolsdialog(),
+                            ],
+                          ),
+                        ),
+                      if (homeNotifier.conditionKey == 'order_accepted' ||
+                          homeNotifier.conditionKey == 'car_location' ||
+                          homeNotifier.conditionKey == 'order_started' ||
+                          homeNotifier.conditionKey == 'order_driver_arrived')
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            BottomDialog(
+                              data: notifier.driverModel ??
+                                  DriverModel.fromJson({}),
+                              onCancelOrder: () {
+                                deleteServices();
+                                deleteLastorder();
+                                socket.exit();
+                                setState(() {
+                                  homeNotifier.conditionKey = '';
+                                });
+                                notifier.driverModel = null;
+                              },
+                            )
+                          ],
+                        ),
+                    ],
+                  ),
+                );
+              },
+            )
+          : const CallDispecherScreen(),
+    );
+  }
+
+  void showMessage(String message) {
+    toast(context: context, txt: message);
+  }
+
+  void checkStatus() async {
+    final Map<String, dynamic> data = await getCurrentOrder();
+    if (data['latitude1'] != null) {
+      MainModel result = await client.post(Links.status);
+      if (result.step == 0) {
+        deleteServices();
+        deleteLastorder();
+      } else if (result.step == 5) {
+        deleteServices();
+        deleteLastorder();
+        showBottomDialog(
+          RatingDialog(
+            data: result.data,
+          ),
+          context,
+        );
+      } else {
+        if (result.step == 4) {
+          homeNotifier.conditionKey = 'order_started';
+          driverCounter.setIsStart(homeNotifier.conditionKey);
+          homeNotifier.driverModel = DriverModel.fromJson(result.data);
+        } else if (result.step == 3) {
+        } else if (result.step == 2) {
+          homeNotifier.conditionKey = 'order_accepted';
+          homeNotifier.driverModel = DriverModel.fromJson(result.data);
+        } else if (result.step == 1) {
+          homeNotifier.conditionKey = 'order_initial';
+        }
+        socket.init();
+        socket.listen(homeNotifier.listenSocket);
+        socket.onReconnect = homeNotifier.onReconnect;
+        double? lat = double.tryParse(data['latitude1'].toString());
+        double? lon = double.tryParse(data['longitude1'].toString());
+        String title = data['address1'].toString();
+        double? lat1 = double.tryParse(data['latitude2'].toString());
+        double? lon1 = double.tryParse(data['longitude2'].toString());
+        String title1 = data['address1'].toString();
+        if (lat != null && lon != null) {
+          mapNotifier.setMarker(Marker(
+            width: 60.o,
+            height: 60.o,
+            // anchorPos: AnchorPos.exactly(Anchor(30.o, 0)),
+            alignment: Alignment.bottomCenter,
+            rotate: true,
+            key: homeNotifier.whereId,
+            point: LatLng(lat, lon),
+            child: Image.asset(
+              images.start,
+            ),
+          ));
+          homeNotifier.isWhere = null;
+          homeNotifier.whereController.setText(title);
+        }
+        if (lat1 != null && lon1 != null) {
+          mapNotifier.setMarker(Marker(
+            key: homeNotifier.whereGoId,
+            width: 60.o,
+            height: 60.o,
+            // anchorPos: AnchorPos.exactly(Anchor(30.o, 0)),
+            alignment: Alignment.bottomCenter,
+            rotate: true,
+            point: LatLng(lat1, lon1),
+            child: Image.asset(
+              images.finish,
+            ),
+          ));
+          homeNotifier.whereGoController.setText(title1);
+          homeNotifier.isWhere = null;
+        }
+        setState(() {});
+      }
+    }
+  }
+
+  bool canPop() =>
+      serviceCounter.isWhereHide == null &&
+      mapNotifier.markers[homeNotifier.whereGoId] == null;
+}
