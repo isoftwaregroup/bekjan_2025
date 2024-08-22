@@ -8,14 +8,18 @@ import 'package:bekjan/src/ui/home_page/models/marker_model.dart';
 import 'package:bekjan/src/ui/home_page/models/tarif_odel.dart';
 import 'package:bekjan/src/ui/home_page/provider/home_provider.dart';
 import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
+import 'package:bekjan/src/utils/utils.dart';
 import 'package:bekjan/src/variables/icons.dart';
 import 'package:bekjan/src/variables/language.dart';
 import 'package:bekjan/src/variables/links.dart';
 import 'package:bekjan/src/variables/util_variables.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pinput/pinput.dart';
 
 ChangeNotifierProvider<MapNotifier> mapProvider =
     ChangeNotifierProvider<MapNotifier>((ref) {
@@ -29,14 +33,15 @@ MapNotifier get mapNotifier {
 }
 
 class MapNotifier with ChangeNotifier {
-  Map<Key, Marker> markers = {};
+  Map<MarkerId, Marker> markers = {};
   LatLng centerPosition = LatLng(40, 71);
   LatLng? currentPosition;
   String currentPositionTitle = '';
-  MapController mapController = MapController();
+  GoogleMapController? googleMap;
   double zoom = 17.6;
   int distance = 0, durationTime = 0;
-  Polyline route = Polyline(points: []), driverRoute = Polyline(points: []);
+  List<LatLng> route = [];
+  List<LatLng> driverRoute = [];
   StreamController<bool> mapScrollstate = StreamController<bool>.broadcast();
   Stream<bool> get mapScrollStream => mapScrollstate.stream;
 
@@ -68,18 +73,14 @@ class MapNotifier with ChangeNotifier {
         for (final value in result.data) {
           MarkerModel merkermodel = MarkerModel.fromJson(value);
           if (merkermodel.latLng != null) {
-            markers[Key(merkermodel.id)] = Marker(
-              key: Key(merkermodel.id),
-              width: 40.o,
-              height: 80.o,
-              point: LatLng(
-                  merkermodel.latLng!.latitude, merkermodel.latLng!.longitude),
-              child: Transform.rotate(
-                angle: merkermodel.angle.toDouble(),
-                child: Image.asset(
-                  images.car,
-                ),
+            markers[MarkerId(merkermodel.id)] = Marker(
+              markerId: MarkerId(merkermodel.id),
+              position: LatLng(
+                merkermodel.latLng!.latitude,
+                merkermodel.latLng!.longitude,
               ),
+              rotation: merkermodel.angle.toDouble(),
+              icon: car,
             );
           }
         }
@@ -99,19 +100,51 @@ class MapNotifier with ChangeNotifier {
   }
 
   /// Xarita markazini foydalanuvchi turgan joyga olib boradi
-  void moveToPosition(LatLng point) => mapController.move(point, zoom);
+  void moveToPosition(LatLng point){
+    if (googleMap != null) {
+      googleMap!.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: point,
+          zoom: zoom,
+        ),
+      ));
+    }
+    serviceCounter.isPositionChanget = true;
+    mapScrollstate.sink.add(false);
+    if (homeNotifier.conditionKey.isEmpty &&
+        homeNotifier.isWhere != null) {
+      if (distance > 10 || homeNotifier.isWhere != false) {
+        final isWhere = homeNotifier.isWhere;
+        homeNotifier
+            .setStreet(point)
+            .then((value) {
+          if (isWhere == true) {
+            homeNotifier.whereController.setText(value.toString());
+          } else if (isWhere == false) {
+            homeNotifier.whereGoController
+                .setText(value.toString());
+          }
+        });
+      }
+      loadCardata(point);
+      serviceCounter.loadTarifs();
+    }
+  }
 
   /// Xaritaga markerni qo'yadi agar bor bolsa o'zgartiradi
   void setMarker(Marker marker) async {
-    markers[marker.key ?? const Key('')] = marker;
-    notifyListeners();
+    if (googleMap != null) {
+      markers[marker.markerId] = marker;
+      notifyListeners();
+    }
   }
 
   /// Ikki nuqta orasidagi marshrutni chizadi
   /// agar isUser true bolsa chiziq rangi kok aks holda sariq boladi
-  Future<bool> drawRoute(bool isUser, LatLng where, LatLng whereGo) async {
+  Future<MainModel> drawRoute(bool isUser, LatLng where, LatLng whereGo) async {
+    late MainModel result;
     for (int i = 0; i < 2; i++) {
-      final MainModel result = await client.get(
+      result = await client.get(
           '${Links.drawLink}?start=${where.longitude},${where.latitude}&end=${whereGo.longitude},${whereGo.latitude}');
       try {
         distance = int.tryParse(result.data['distance'].toString()) ?? 0;
@@ -124,19 +157,10 @@ class MapNotifier with ChangeNotifier {
         if (list.isNotEmpty) {
           List<dynamic> coordinates = list.first['geometry']['coordinates'];
           if (coordinates.isNotEmpty) {
-            final list = List<LatLng>.generate(
+            final line = List<LatLng>.generate(
                 coordinates.length,
-                (index) =>
+                    (index) =>
                     LatLng(coordinates[index].last, coordinates[index].first));
-            final line = Polyline(
-              points: list,
-              strokeWidth: 6.o,
-              color: isUser
-                  ? isDark
-                      ? theme.blue
-                      : theme.mainBlue
-                  : theme.yellow,
-            );
             if (isUser) {
               route = line;
             } else {
@@ -150,14 +174,14 @@ class MapNotifier with ChangeNotifier {
             }
           }
           notifyListeners();
-          return true;
+          return result;
         }
       } catch (e) {
         print(e);
       }
     }
     notifyListeners();
-    return false;
+    return result;
   }
 
   /// Xaritadagi barcha markerlar va chiziqlarni olib tashlaydi,
@@ -170,4 +194,21 @@ class MapNotifier with ChangeNotifier {
     }
     notifyListeners();
   }
+}
+
+/// Xarita malumotlarini yuklab olish
+Future<void> loadMapAssets() async {
+  darkMap = await rootBundle.loadString(assetLinks.darkMap);
+  car = await getBitmap(
+    asset: images.car,
+    size: 80,
+  );
+  startMarker = await getBitmap(
+    asset: images.start,
+    size: 120,
+  );
+  endMarker = await getBitmap(
+    asset: images.finish,
+    size: 120,
+  );
 }

@@ -4,10 +4,10 @@
     minSdkVersion="21"
     targetSdkVersion="34"
     shrinking="true"
-    mergedManifest="/Users/bunyodbek/StudioProjects/bekjan/build/app/intermediates/merged_manifest/release/AndroidManifest.xml"
-    proguardFiles="/Users/bunyodbek/StudioProjects/bekjan/build/app/intermediates/default_proguard_files/global/proguard-android.txt-7.3.0:/Users/bunyodbek/flutter/packages/flutter_tools/gradle/flutter_proguard_rules.pro:proguard-rules.pro"
-    partialResultsDir="/Users/bunyodbek/StudioProjects/bekjan/build/app/intermediates/lint_vital_partial_results/release/out"
-    desugaredMethodsFiles="/Users/bunyodbek/.gradle/caches/transforms-3/853dc8e87c9750abb3866189a95ccb7b/transformed/D8BackportedDesugaredMethods.txt">
+    mergedManifest="/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/intermediates/merged_manifest/release/AndroidManifest.xml"
+    proguardFiles="/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/intermediates/default_proguard_files/global/proguard-android.txt-7.3.0:/Users/asrorjonturgunboyev/flutter/packages/flutter_tools/gradle/flutter_proguard_rules.pro:proguard-rules.pro"
+    partialResultsDir="/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/intermediates/lint_vital_partial_results/release/out"
+    desugaredMethodsFiles="/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/617bade4e346e466aee6676d142fcec2/transformed/D8BackportedDesugaredMethods.txt">
   <buildFeatures
       namespacing="REQUIRED"/>
   <sourceProviders>
@@ -32,9 +32,9 @@
         value="android.app.Application" />
   </manifestPlaceholders>
   <mainArtifact
-      classOutputs="/Users/bunyodbek/StudioProjects/bekjan/build/app/intermediates/javac/release/classes:/Users/bunyodbek/StudioProjects/bekjan/build/app/tmp/kotlin-classes/release:/Users/bunyodbek/StudioProjects/bekjan/build/app/kotlinToolingMetadata:/Users/bunyodbek/StudioProjects/bekjan/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/R.jar"
+      classOutputs="/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/intermediates/javac/release/classes:/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/tmp/kotlin-classes/release:/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/kotlinToolingMetadata:/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/R.jar"
       applicationId="uz.Insoft.bekjan"
-      generatedSourceFolders="/Users/bunyodbek/StudioProjects/bekjan/build/app/generated/ap_generated_sources/release/out:/Users/bunyodbek/StudioProjects/bekjan/build/app/generated/aidl_source_output_dir/release/out:/Users/bunyodbek/StudioProjects/bekjan/build/app/generated/source/buildConfig/release:/Users/bunyodbek/StudioProjects/bekjan/build/app/generated/renderscript_source_output_dir/release/out"
-      generatedResourceFolders="/Users/bunyodbek/StudioProjects/bekjan/build/app/generated/res/rs/release:/Users/bunyodbek/StudioProjects/bekjan/build/app/generated/res/resValues/release">
+      generatedSourceFolders="/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/generated/ap_generated_sources/release/out:/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/generated/aidl_source_output_dir/release/out:/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/generated/source/buildConfig/release:/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/generated/renderscript_source_output_dir/release/out"
+      generatedResourceFolders="/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/generated/res/rs/release:/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/generated/res/resValues/release">
   </mainArtifact>
 </variant>

@@ -10,7 +10,6 @@ import 'package:bekjan/src/variables/language.dart';
 import 'package:bekjan/src/variables/links.dart';
 import 'package:bekjan/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pinput/pinput.dart';
@@ -378,8 +377,8 @@ class _AdressBarState extends State<AdressBar> {
     } else if (homeNotifier.isWhere == false) {
       mapNotifier.markers.remove(homeNotifier.whereGoId);
     }
-    mapNotifier.route = Polyline(points: []);
-    mapNotifier.driverRoute = Polyline(points: []);
+    mapNotifier.route.clear();
+    mapNotifier.driverRoute.clear();
     serviceCounter.update();
     mapNotifier.update();
     homeNotifier.update();

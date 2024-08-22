@@ -1,4 +1,8 @@
 import 'dart:math';
+import 'dart:ui' as ui;
+
+import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 const List<String> mounths = [
   'Yanvar',
@@ -117,4 +121,27 @@ double deg2rad(double deg) {
 
 double rad2deg(double deg) {
   return deg * 180.0 / pi;
+}
+
+
+
+//adding icon to map
+Future<BitmapDescriptor> getBitmap({
+  required String asset,
+  required int size,
+}) async {
+  ByteData data = await rootBundle.load(asset);
+  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+      targetWidth: size);
+  ui.FrameInfo fi = await codec.getNextFrame();
+  Uint8List markerIcon =
+  (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+      .buffer
+      .asUint8List();
+  return BitmapDescriptor.fromBytes(markerIcon);
+  // return await BitmapDescriptor.fromAssetImage(
+  //     ImageConfiguration(
+  //       size: size,
+  //       platform: Platform.isIOS ? TargetPlatform.iOS : TargetPlatform.android,
+  //     ), asset);
 }

@@ -12,7 +12,6 @@ import '../../variables/util_variables.dart';
 import 'models/service_model.dart';
 
 Future<void> saveOrderServices() async {
-  final pref = await SharedPreferences.getInstance();
   List<String> names = [];
   List<String> costs = [];
   for (final service in serviceCounter.services) {
@@ -26,7 +25,6 @@ Future<void> saveOrderServices() async {
 }
 
 Future<List<SericeModel>> getServices() async {
-  final pref = await SharedPreferences.getInstance();
   List<String> names = pref.getStringList('services_names') ?? [];
   List<String> costs = pref.getStringList('services_costs') ?? [];
   if (names.length == costs.length && names.isNotEmpty) {
@@ -42,7 +40,6 @@ Future<List<SericeModel>> getServices() async {
 }
 
 Future<void> deleteServices() async {
-  final pref = await SharedPreferences.getInstance();
   pref.remove('services_names');
   pref.remove('services_costs');
 }
@@ -60,13 +57,11 @@ Future<bool> cancelCurrentOrder(String comment) async {
 
 //------------
 
-Future<void> saveCurrentOrder(Map<String, dynamic> data) async {
-  final pref = await SharedPreferences.getInstance();
-  await pref.setString('setted_current_order', jsonEncode(data));
+void saveCurrentOrder(Map<String, dynamic> data) {
+  pref.setString('setted_current_order', jsonEncode(data));
 }
 
-Future<Map<String, dynamic>> getCurrentOrder() async {
-  final pref = await SharedPreferences.getInstance();
+Map<String, dynamic> getCurrentOrder() {
   final data = jsonDecode(pref.getString('setted_current_order') ?? '{}');
   if (data is Map<String, dynamic>) {
     return data;
@@ -74,8 +69,7 @@ Future<Map<String, dynamic>> getCurrentOrder() async {
   return {};
 }
 
-Future<void> deleteLastorder() async {
-  final pref = await SharedPreferences.getInstance();
+void deleteLastorder() {
   pref.remove('setted_current_order');
 }
 
@@ -113,6 +107,7 @@ class LatLon {
   double lat;
   double lon;
 }
+
 //---------------
 
 // double calculateMin(List<LatLng> locations, LatLng itemLatLng){

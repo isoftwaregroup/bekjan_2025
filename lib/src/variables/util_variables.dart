@@ -1,4 +1,5 @@
 import 'package:bekjan/src/network/http_result.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'language.dart';
@@ -47,3 +48,7 @@ MainModel get defaultModel => MainModel(
 String darkMap = '';
 String lightMap = '[]';
 const String apiKey = 'AIzaSyCo7hWHhn7zrGZ9stscoIND1EXjWDUh3dM';
+
+late final BitmapDescriptor car;
+late final BitmapDescriptor startMarker;
+late final BitmapDescriptor endMarker;

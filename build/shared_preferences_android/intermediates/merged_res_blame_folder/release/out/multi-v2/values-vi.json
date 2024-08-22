@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "io.flutter.plugins.sharedpreferences.shared_preferences_android-mergeReleaseResources-8:/values-vi/values-vi.xml",
+            "outputFile": "io.flutter.plugins.sharedpreferences.shared_preferences_android-merged_res-12:/values-vi/values-vi.xml",
             "map": [
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/256769c6aa44c79495da46a2ea6f7604/transformed/core-1.6.0/res/values-vi/values-vi.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/456d626061b6c9d0c7607cabd6fdfc6a/transformed/core-1.6.0/res/values-vi/values-vi.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "io.flutter.plugins.sharedpreferences.shared_preferences_android-merged_res-10:/values-vi/values-vi.xml",
+            "outputFile": "io.flutter.plugins.sharedpreferences.shared_preferences_android-mergeReleaseResources-10:/values-vi/values-vi.xml",
             "map": [
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/256769c6aa44c79495da46a2ea6f7604/transformed/core-1.6.0/res/values-vi/values-vi.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/456d626061b6c9d0c7607cabd6fdfc6a/transformed/core-1.6.0/res/values-vi/values-vi.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

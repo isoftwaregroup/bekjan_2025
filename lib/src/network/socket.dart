@@ -4,7 +4,6 @@ import 'package:bekjan/src/helpers/ConnectionListner.dart';
 import 'package:bekjan/src/variables/links.dart';
 import 'package:bekjan/src/variables/util_variables.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-
 import '../helpers/log/event_provider.dart';
 import '../helpers/notification_service.dart';
 import 'http_result.dart';
@@ -73,7 +72,7 @@ class SocketConnection {
           Uri.parse('${Links.socketLink}$token'),
         );
         await _channel!.ready;
-        _sendPing();
+        // _sendPing();
         _channel!.stream.listen(
           (event) {
             MainModel model = MainModel.fromJson(jsonDecode(event));
@@ -98,7 +97,7 @@ class SocketConnection {
           onError: (e) async {
             print('on error connecting socket.');
             eventNotifier.log('on error connecting socket.');
-            _tryAgain();
+            // _tryAgain();
           },
         );
       } catch (e) {
@@ -106,8 +105,6 @@ class SocketConnection {
         eventNotifier.log('websocket connecting error');
         _tryAgain();
       }
-    } else {
-      _tryAgain();
     }
     //_tryAgain();
   }
@@ -145,7 +142,7 @@ class SocketConnection {
         print('close error: $e');
       }
     }
-    await Future.delayed(const Duration(seconds: 1)).then((value) {
+    await Future.delayed(const Duration(seconds: 10)).then((value) {
       _connectWC();
       if (onReconnect != null) {
         onReconnect!();

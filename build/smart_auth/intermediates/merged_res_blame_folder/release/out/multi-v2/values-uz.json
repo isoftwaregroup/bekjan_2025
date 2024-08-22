@@ -4,24 +4,24 @@
             "outputFile": "fman.ge.smart_auth-merged_res-15:/values-uz/values-uz.xml",
             "map": [
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/6a195e926ff60aaded315bf5e6b37bba/transformed/core-1.12.0/res/values-uz/values-uz.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/e2c2d4be0f729560202543ee69673317/transformed/jetified-play-services-basement-18.2.0/res/values-uz/values.xml",
                     "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,157,259,360,460,568,672,791",
-                        "endColumns": "101,101,100,99,107,103,118,100",
-                        "endOffsets": "152,254,355,455,563,667,786,887"
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "145",
+                        "endOffsets": "340"
                     },
                     "to": {
-                        "startLines": "2,3,4,5,6,7,8,27",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,157,259,360,460,568,672,3032",
-                        "endColumns": "101,101,100,99,107,103,118,100",
-                        "endOffsets": "152,254,355,455,563,667,786,3128"
+                        "startLines": "17",
+                        "startColumns": "4",
+                        "startOffsets": "1788",
+                        "endColumns": "149",
+                        "endOffsets": "1933"
                     }
                 },
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/889ad31563ce5abbbd6d6d50ea13a2c6/transformed/jetified-play-services-base-18.0.1/res/values-uz/values.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/6757082910fcdfdc3a6e0e4e91e552b5/transformed/jetified-play-services-base-18.0.1/res/values-uz/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,20 +38,20 @@
                     }
                 },
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/39f0229ae22015944e1e6d317a35b931/transformed/jetified-play-services-basement-18.2.0/res/values-uz/values.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/e8936b38033cbd3af58ba6bbdba47615/transformed/core-1.12.0/res/values-uz/values-uz.xml",
                     "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "145",
-                        "endOffsets": "340"
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,157,259,360,460,568,672,791",
+                        "endColumns": "101,101,100,99,107,103,118,100",
+                        "endOffsets": "152,254,355,455,563,667,786,887"
                     },
                     "to": {
-                        "startLines": "17",
-                        "startColumns": "4",
-                        "startOffsets": "1788",
-                        "endColumns": "149",
-                        "endOffsets": "1933"
+                        "startLines": "2,3,4,5,6,7,8,27",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,157,259,360,460,568,672,3032",
+                        "endColumns": "101,101,100,99,107,103,118,100",
+                        "endOffsets": "152,254,355,455,563,667,786,3128"
                     }
                 }
             ]
@@ -60,24 +60,24 @@
             "outputFile": "fman.ge.smart_auth-mergeReleaseResources-13:/values-uz/values-uz.xml",
             "map": [
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/6a195e926ff60aaded315bf5e6b37bba/transformed/core-1.12.0/res/values-uz/values-uz.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/e2c2d4be0f729560202543ee69673317/transformed/jetified-play-services-basement-18.2.0/res/values-uz/values.xml",
                     "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,157,259,360,460,568,672,791",
-                        "endColumns": "101,101,100,99,107,103,118,100",
-                        "endOffsets": "152,254,355,455,563,667,786,887"
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "145",
+                        "endOffsets": "340"
                     },
                     "to": {
-                        "startLines": "2,3,4,5,6,7,8,27",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,157,259,360,460,568,672,3032",
-                        "endColumns": "101,101,100,99,107,103,118,100",
-                        "endOffsets": "152,254,355,455,563,667,786,3128"
+                        "startLines": "17",
+                        "startColumns": "4",
+                        "startOffsets": "1788",
+                        "endColumns": "149",
+                        "endOffsets": "1933"
                     }
                 },
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/889ad31563ce5abbbd6d6d50ea13a2c6/transformed/jetified-play-services-base-18.0.1/res/values-uz/values.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/6757082910fcdfdc3a6e0e4e91e552b5/transformed/jetified-play-services-base-18.0.1/res/values-uz/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -94,20 +94,20 @@
                     }
                 },
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/39f0229ae22015944e1e6d317a35b931/transformed/jetified-play-services-basement-18.2.0/res/values-uz/values.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/e8936b38033cbd3af58ba6bbdba47615/transformed/core-1.12.0/res/values-uz/values-uz.xml",
                     "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "145",
-                        "endOffsets": "340"
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,157,259,360,460,568,672,791",
+                        "endColumns": "101,101,100,99,107,103,118,100",
+                        "endOffsets": "152,254,355,455,563,667,786,887"
                     },
                     "to": {
-                        "startLines": "17",
-                        "startColumns": "4",
-                        "startOffsets": "1788",
-                        "endColumns": "149",
-                        "endOffsets": "1933"
+                        "startLines": "2,3,4,5,6,7,8,27",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,157,259,360,460,568,672,3032",
+                        "endColumns": "101,101,100,99,107,103,118,100",
+                        "endOffsets": "152,254,355,455,563,667,786,3128"
                     }
                 }
             ]

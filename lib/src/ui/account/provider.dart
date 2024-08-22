@@ -11,7 +11,6 @@ ChangeNotifierProvider<UserNotifier> userProvider =
     ChangeNotifierProvider<UserNotifier>((ref) {
   return userNotifier;
 });
-
 UserNotifier? _userNotifier;
 UserNotifier get userNotifier {
   _userNotifier ??= UserNotifier();
@@ -73,6 +72,7 @@ class UserNotifier with ChangeNotifier {
         PackageInfo packageInfo = await PackageInfo.fromPlatform();
         aboutData = aboutUs.copyWith(
           name: packageInfo.appName,
+          version_name: packageInfo.version
         );
         notifyListeners();
       }

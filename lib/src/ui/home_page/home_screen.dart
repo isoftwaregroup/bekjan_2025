@@ -14,10 +14,9 @@ import 'package:bekjan/src/variables/icons.dart';
 import 'package:bekjan/src/variables/language.dart';
 import 'package:bekjan/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pinput/pinput.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -43,11 +42,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   int durationTime = -1, distance = 0;
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     homeNotifier.homeContext = () {
       return context;
     };
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
         }
       });
     }
-    checkStatus();
+    checkStatus(true);
     connectionListner.homeConnectionListner = (isConnected) {
       isOnline = isConnected;
       if (isOnline) {
@@ -92,8 +92,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.inactive){
+
+    }else if(state == AppLifecycleState.resumed){
+      checkStatus(false);
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
   void dispose() {
-    mapNotifier.mapController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    if(mapNotifier.googleMap != null){
+      mapNotifier.googleMap!.dispose();
+    }
     super.dispose();
   }
 
@@ -122,11 +135,7 @@ class _HomePageState extends State<HomePage> {
                     notifier.whereGoController.setText('');
                     mapNotifier.markers.clear();
                     notifier.isWhere = true;
-                    mapNotifier.route = Polyline(
-                      points: [],
-                      strokeWidth: 0,
-                      color: theme.blue,
-                    );
+                    mapNotifier.route.clear();
                     serviceCounter.isWhereHide = null;
                     mapNotifier.mapScrollstate.sink.add(false);
                     mapNotifier.update();
@@ -182,7 +191,10 @@ class _HomePageState extends State<HomePage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               GestureDetector(
-                                onTap: mapNotifier.moveToMyPosition,
+                                onTap: (){
+                                  mapNotifier.zoom = 17;
+                                  mapNotifier.moveToMyPosition();
+                                },
                                 child: Container(
                                   width: 50.o,
                                   height: 50.o,
@@ -241,8 +253,8 @@ class _HomePageState extends State<HomePage> {
     toast(context: context, txt: message);
   }
 
-  void checkStatus() async {
-    final Map<String, dynamic> data = await getCurrentOrder();
+  void checkStatus(bool isEnter) async {
+    final Map<String, dynamic> data = getCurrentOrder();
     if (data['latitude1'] != null) {
       MainModel result = await client.post(Links.status);
       if (result.step == 0) {
@@ -251,23 +263,34 @@ class _HomePageState extends State<HomePage> {
       } else if (result.step == 5) {
         deleteServices();
         deleteLastorder();
-        showBottomDialog(
-          RatingDialog(
-            data: result.data,
-          ),
-          context,
-        );
+        if(homeNotifier.conditionKey != 'order_completed' && isEnter){
+          showBottomDialog(
+            RatingDialog(
+              data: result.data,
+            ),
+            context,
+          );
+        }
       } else {
         if (result.step == 4) {
-          homeNotifier.conditionKey = 'order_started';
-          driverCounter.setIsStart(homeNotifier.conditionKey);
-          homeNotifier.driverModel = DriverModel.fromJson(result.data);
-        } else if (result.step == 3) {
-        } else if (result.step == 2) {
-          homeNotifier.conditionKey = 'order_accepted';
-          homeNotifier.driverModel = DriverModel.fromJson(result.data);
+          String key = '';
+          try{
+            key = result.data['status']['number'].toString();
+          }catch(e){}
+          if(key == '1' && homeNotifier.conditionKey != 'order_accepted'){
+            homeNotifier.conditionKey = 'order_accepted';
+            homeNotifier.driverModel = DriverModel.fromJson(result.data);
+          }else if(key == '2' && homeNotifier.conditionKey != 'order_driver_arrived'){
+            homeNotifier.conditionKey = 'order_driver_arrived';
+          } else if(key == '3' && homeNotifier.conditionKey != 'order_started'){
+            homeNotifier.conditionKey = 'order_started';
+            driverCounter.setIsStart(homeNotifier.conditionKey);
+            homeNotifier.driverModel = DriverModel.fromJson(result.data);
+          }
         } else if (result.step == 1) {
-          homeNotifier.conditionKey = 'order_initial';
+          if(homeNotifier.conditionKey != 'order_initial'){
+            homeNotifier.conditionKey = 'order_initial';
+          }
         }
         socket.init();
         socket.listen(homeNotifier.listenSocket);
@@ -280,32 +303,18 @@ class _HomePageState extends State<HomePage> {
         String title1 = data['address1'].toString();
         if (lat != null && lon != null) {
           mapNotifier.setMarker(Marker(
-            width: 60.o,
-            height: 60.o,
-            // anchorPos: AnchorPos.exactly(Anchor(30.o, 0)),
-            alignment: Alignment.bottomCenter,
-            rotate: true,
-            key: homeNotifier.whereId,
-            point: LatLng(lat, lon),
-            child: Image.asset(
-              images.start,
-            ),
+            markerId: homeNotifier.whereId,
+            position: LatLng(lat, lon),
+            icon: startMarker,
           ));
           homeNotifier.isWhere = null;
           homeNotifier.whereController.setText(title);
         }
         if (lat1 != null && lon1 != null) {
           mapNotifier.setMarker(Marker(
-            key: homeNotifier.whereGoId,
-            width: 60.o,
-            height: 60.o,
-            // anchorPos: AnchorPos.exactly(Anchor(30.o, 0)),
-            alignment: Alignment.bottomCenter,
-            rotate: true,
-            point: LatLng(lat1, lon1),
-            child: Image.asset(
-              images.finish,
-            ),
+            markerId: homeNotifier.whereGoId,
+            position: LatLng(lat1, lon1),
+            icon: endMarker,
           ));
           homeNotifier.whereGoController.setText(title1);
           homeNotifier.isWhere = null;

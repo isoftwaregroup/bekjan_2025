@@ -4,7 +4,7 @@
             "outputFile": "xyz.luan.audioplayers.audioplayers_android-mergeReleaseResources-10:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/244007a87618d324e47aaf2acba16fb1/transformed/core-1.9.0/res/values-v21/values-v21.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/58d1d4946892d397ade002f88070a472/transformed/core-1.9.0/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -20,7 +20,7 @@
             "outputFile": "xyz.luan.audioplayers.audioplayers_android-merged_res-12:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/244007a87618d324e47aaf2acba16fb1/transformed/core-1.9.0/res/values-v21/values-v21.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/58d1d4946892d397ade002f88070a472/transformed/core-1.9.0/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

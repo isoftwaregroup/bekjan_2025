@@ -10,7 +10,7 @@ import 'package:bekjan/src/variables/links.dart';
 import 'package:bekjan/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../models/service_model.dart';
 

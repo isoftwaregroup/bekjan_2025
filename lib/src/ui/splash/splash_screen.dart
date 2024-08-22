@@ -37,11 +37,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     setDispacherLink();
+
+
     if ((pref.getString('token') ?? '').isNotEmpty) {
       userNotifier.getUser();
       setOperations();
     } else {
+
+
       splashNotifier.getSplash().onError((error, stackTrace) {
+
+
         toast(context: context, txt: error.toString());
       });
     }

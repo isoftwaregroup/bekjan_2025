@@ -4,7 +4,7 @@
             "outputFile": "xyz.luan.audioplayers.audioplayers_android-merged_res-12:/values-pa/values-pa.xml",
             "map": [
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/244007a87618d324e47aaf2acba16fb1/transformed/core-1.9.0/res/values-pa/values-pa.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/58d1d4946892d397ade002f88070a472/transformed/core-1.9.0/res/values-pa/values-pa.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -19,7 +19,7 @@
             "outputFile": "xyz.luan.audioplayers.audioplayers_android-mergeReleaseResources-10:/values-pa/values-pa.xml",
             "map": [
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/244007a87618d324e47aaf2acba16fb1/transformed/core-1.9.0/res/values-pa/values-pa.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/58d1d4946892d397ade002f88070a472/transformed/core-1.9.0/res/values-pa/values-pa.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

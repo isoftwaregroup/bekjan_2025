@@ -8,11 +8,11 @@ import 'package:bekjan/src/utils/utils.dart';
 import 'package:bekjan/src/variables/icons.dart';
 import 'package:bekjan/src/variables/language.dart';
 import 'package:bekjan/src/variables/util_variables.dart';
+import 'package:bekjan/src/widgets/Toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../helpers/apptheme.dart';
@@ -300,15 +300,16 @@ class BottomToolsdialog extends StatelessWidget {
                                             mapNotifier.centerPosition,
                                   )
                                 : mapNotifier.markers[homeNotifier.whereId]!;
-                            var whereGoMarker =
+                            Marker? whereGoMarker =
                                 mapNotifier.markers[homeNotifier.whereGoId];
                             if (serviceCounter.isWhereHide == false) {
+                              print('where go set');
                               whereGoMarker = setEditableMarker(
                                   homeNotifier.whereGoId,
                                   mapNotifier.centerPosition);
                               if (homeNotifier.whereController.text.isEmpty) {
                                 homeNotifier
-                                    .setStreet(whereMarker.point)
+                                    .setStreet(whereMarker.position)
                                     .then((value) {
                                   homeNotifier.whereController
                                       .setText(value.toString());
@@ -323,23 +324,28 @@ class BottomToolsdialog extends StatelessWidget {
                                       homeNotifier.whereGoId,
                                       mapNotifier.centerPosition);
                                 }
-                                if (whereGoMarker?.point != null) {
-                                  homeNotifier.isWhere = null;
+                                if (whereGoMarker?.position != null) {
                                   notifier.isWhereHide = null;
                                   homeNotifier.update();
                                   mapNotifier.mapScrollstate.sink.add(false);
-                                  final onDraw = await mapNotifier.drawRoute(
+                                  mapNotifier.drawRoute(
                                     true,
-                                    whereMarker.point,
-                                    whereGoMarker!.point,
-                                  );
-                                  if (onDraw) {
-                                    return;
-                                  }
+                                    whereMarker.position,
+                                    whereGoMarker!.position,
+                                  ).then((result){
+                                    if(result.status != 200){
+                                      toast(context: context, txt: result.message);
+                                    }else{
+                                      homeNotifier.isWhere = null;
+                                      mapNotifier.update();
+                                      homeNotifier.update();
+                                    }
+                                  });
+                                  return;
                                 }
                               }
-                              if (whereGoMarker?.point.latitude == null ||
-                                  whereGoMarker?.point.longitude == null) {
+                              if (whereGoMarker?.position.latitude == null ||
+                                  whereGoMarker?.position.longitude == null) {
                                 homeNotifier.whereGoController.setText('-');
                               }
                               int cost = notifier.tarifs.isEmpty
@@ -350,10 +356,10 @@ class BottomToolsdialog extends StatelessWidget {
                                     .tarifs[serviceCounter.tarifIndex].id,
                                 'cost': cost + addedCost,
                                 'distance': mapNotifier.distance,
-                                'latitude1': whereMarker.point.latitude,
-                                'longitude1': whereMarker.point.longitude,
-                                'latitude2': whereGoMarker?.point.latitude,
-                                'longitude2': whereGoMarker?.point.longitude,
+                                'latitude1': whereMarker.position.latitude,
+                                'longitude1': whereMarker.position.longitude,
+                                'latitude2': whereGoMarker?.position.latitude,
+                                'longitude2': whereGoMarker?.position.longitude,
                                 'address1':
                                     homeNotifier.whereController.text.isEmpty
                                         ? '-'
@@ -433,35 +439,26 @@ class BottomToolsdialog extends StatelessWidget {
     );
   }
 
-  Marker setEditableMarker(Key id, LatLng position) {
+  Marker setEditableMarker(MarkerId id, LatLng position) {
     final marker = Marker(
-      width: 60.o,
-      height: 60.o,
-      // anchorPos: AnchorPos.exactly(Anchor(30.o, 0)),
-      alignment: Alignment.topCenter,
-      rotate: true,
-      key: id,
-      point: position,
-      child: GestureDetector(
-        onTap: () {
-          mapNotifier.markers.removeWhere((key, value) {
-            if (homeNotifier.conditionKey.isEmpty && key == id) {
-              homeNotifier.isWhere = id == homeNotifier.whereId;
-              mapNotifier.moveToPosition(value.point);
-              mapNotifier.route = Polyline(points: []);
-              mapNotifier.driverRoute = Polyline(points: []);
-              mapNotifier.update();
-              homeNotifier.update();
-              serviceCounter.update();
-              return key == id;
-            }
-            return false;
-          });
-        },
-        child: Image.asset(
-          id == homeNotifier.whereId ? images.start : images.finish,
-        ),
-      ),
+      markerId: id,
+      position: position,
+      onTap: (){
+        mapNotifier.markers.removeWhere((key, value) {
+          if (homeNotifier.conditionKey.isEmpty && key == id) {
+            homeNotifier.isWhere = id == homeNotifier.whereId;
+            mapNotifier.moveToPosition(value.position);
+            mapNotifier.route.clear();
+            mapNotifier.driverRoute.clear();
+            mapNotifier.update();
+            homeNotifier.update();
+            serviceCounter.update();
+            return key == id;
+          }
+          return false;
+        });
+      },
+      icon: id == homeNotifier.whereId ? startMarker : endMarker,
     );
     mapNotifier.setMarker(marker);
     return marker;
@@ -473,8 +470,8 @@ class BottomToolsdialog extends StatelessWidget {
     } else if (homeNotifier.isWhere == false) {
       mapNotifier.markers.remove(homeNotifier.whereGoId);
     }
-    mapNotifier.route = Polyline(points: []);
-    mapNotifier.driverRoute = Polyline(points: []);
+    mapNotifier.route.clear();
+    mapNotifier.driverRoute.clear();
     serviceCounter.update();
     mapNotifier.update();
     homeNotifier.update();

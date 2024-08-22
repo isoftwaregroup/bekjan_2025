@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bekjan/src/helpers/notification_service.dart';
+import 'package:bekjan/src/ui/home_page/provider/map_provider.dart';
 import 'package:bekjan/src/ui/splash/splash_screen.dart';
 import 'package:bekjan/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ void main() async {
 
   //client.initClient();
   pref = await SharedPreferences.getInstance();
+  await loadMapAssets();
 
   await SystemChrome.setPreferredOrientations(
     <DeviceOrientation>[
@@ -55,10 +57,9 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class _MyAppState extends State<MyApp>{
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
 
     if (Platform.isAndroid) {
       OptimizeBattery.isIgnoringBatteryOptimizations().then((onValue) {});
@@ -66,26 +67,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print(state);
-    super.didChangeAppLifecycleState(state);
-  }
-
-  @override
-  void didChangePlatformBrightness() {
-    setTheme();
-    super.didChangePlatformBrightness();
-  }
+  //
+  // @override
+  // void didChangePlatformBrightness() {
+  //   setTheme();
+  //   super.didChangePlatformBrightness();
+  // }
 
   void setTheme() async {
-    print('platformBrightnessOf: ${MediaQuery.platformBrightnessOf(context)}');
     // if (pref.getBool('ThemeApp') == null) {
     //   print('pref.getBool(ThemeApp) == null');
     //   final isdark =
@@ -125,7 +114,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           height = MediaQuery.of(context).size.height / 600;
           width = MediaQuery.of(context).size.width / 600;
           arifmethic = (height + width) / 2;
-          setTheme();
           return MediaQuery(
             data: MediaQuery.of(context),
             child: child!,

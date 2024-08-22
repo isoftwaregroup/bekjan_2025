@@ -326,11 +326,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
     });
     int? userId;
     if (Platform.isAndroid) {
-      ReferrerDetails referrerDetails =
-          await AndroidPlayInstallReferrer.installReferrer;
-      print(
-          'referrerDetails.installReferrer: ${referrerDetails.installReferrer}');
-      userId = int.tryParse(referrerDetails.installReferrer.toString());
+      try{
+        ReferrerDetails referrerDetails =
+        await AndroidPlayInstallReferrer.installReferrer;
+        print(
+            'referrerDetails.installReferrer: ${referrerDetails.installReferrer}');
+        userId = int.tryParse(referrerDetails.installReferrer.toString());
+      }catch(e){}
     }
     SharedPreferences pref = await SharedPreferences.getInstance();
     String deviceName = "";

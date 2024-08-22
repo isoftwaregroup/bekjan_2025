@@ -57,7 +57,7 @@ class LocationChecker extends StatelessWidget {
                       borderRadius: BorderRadius.circular(2.o),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           );

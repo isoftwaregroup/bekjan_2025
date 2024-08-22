@@ -12,9 +12,8 @@ import 'package:bekjan/src/variables/icons.dart';
 import 'package:bekjan/src/variables/links.dart';
 import 'package:bekjan/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../variables/language.dart';
@@ -41,9 +40,9 @@ class HomeNotifier with ChangeNotifier {
   DriverModel? driverModel;
   AnimationController? checkerController;
   bool streetLoading = false, orderLoad = false;
-  final whereId = const Key('whereId'),
-      whereGoId = const Key('whereGoId'),
-      driverId = const Key('driverId');
+  final whereId = const MarkerId('whereId'),
+      whereGoId = const MarkerId('whereGoId'),
+      driverId = const MarkerId('driverId');
 
   TextEditingController whereController = TextEditingController(),
       whereGoController = TextEditingController();
@@ -81,6 +80,7 @@ class HomeNotifier with ChangeNotifier {
         }
       }
     } catch (e) {}
+    return null;
   }
 
   /// Joylashuv boyicha manzilni oladi
@@ -107,10 +107,9 @@ class HomeNotifier with ChangeNotifier {
     notifyListeners();
     MainModel result = await client.get(
         '${Links.addressFromLocation}&lat=${latLng.latitude}&lon=${latLng.longitude}');
-    print(result.data);
     streetLoading = false;
     serviceCounter.update();
-    homeNotifier.update();
+    update();
     notifyListeners();
     mapNotifier.mapScrollstate.sink.add(false);
     try {
@@ -154,7 +153,7 @@ class HomeNotifier with ChangeNotifier {
         socket.init();
         socket.listen(listenSocket);
         socket.onReconnect = onReconnect;
-        homeNotifier.conditionKey = 'order_initial';
+        conditionKey = 'order_initial';
       }
       orderLoad = false;
       notifyListeners();
@@ -163,27 +162,26 @@ class HomeNotifier with ChangeNotifier {
 
   void listenSocket(MainModel? event) {
     if (event != null) {
-      homeNotifier.conditionKey = event.key;
-      //showMessage(homeNotifier.conditionKey);
+      conditionKey = event.key;
+      //showMessage(conditionKey);
       try {
-        if (homeNotifier.conditionKey == 'order_accepted') {
+        if (conditionKey == 'order_accepted') {
           driverModel = DriverModel.fromJson(event.data);
-
           notifyListeners();
-        } else if (homeNotifier.conditionKey == 'car_location') {
+        } else if (conditionKey == 'car_location') {
           try {
             double? lat = double.tryParse(event.data['latitude'].toString());
             double? lon = double.tryParse(event.data['longitude'].toString());
             if (lat != null && lon != null) {
               LatLng point = LatLng(lat, lon);
-              if (mapNotifier.driverRoute.points.isEmpty) {
-                if (mapNotifier.markers[homeNotifier.whereId] is Marker) {
+              if (mapNotifier.driverRoute.isEmpty) {
+                if (mapNotifier.markers[whereId] is Marker) {
                   final marker =
-                      mapNotifier.markers[homeNotifier.whereId] as Marker;
-                  mapNotifier.drawRoute(false, point, marker.point);
+                      mapNotifier.markers[whereId] as Marker;
+                  mapNotifier.drawRoute(false, point, marker.position);
                 }
               } else {
-                final points = mapNotifier.driverRoute.points;
+                final points = mapNotifier.driverRoute;
                 if (!checkIsPath(
                     point.latitude,
                     point.longitude,
@@ -191,37 +189,27 @@ class HomeNotifier with ChangeNotifier {
                         points.length,
                         (index) => LatLon(points[index].latitude,
                             points[index].longitude)))) {
-                  if (mapNotifier.markers[homeNotifier.whereId] is Marker) {
+                  if (mapNotifier.markers[whereId] is Marker) {
                     final marker =
-                        mapNotifier.markers[homeNotifier.whereId] as Marker;
-                    mapNotifier.drawRoute(false, point, marker.point);
+                        mapNotifier.markers[whereId] as Marker;
+                    mapNotifier.drawRoute(false, point, marker.position);
                   }
                 }
               }
               // mapNotifier.moveToPosition(point);
               mapNotifier.setMarker(Marker(
-                width: 40.o,
-                height: 80.o,
-                key: homeNotifier.driverId,
-                // anchorPos: AnchorPos.exactly(Anchor(30.o, 0)),
-                alignment: Alignment.bottomCenter,
-                rotate: true,
-                point: point,
-                child: Transform.rotate(
-                  angle: double.tryParse(event.data['angle'].toString()) ?? 0,
-                  child: Image.asset(
-                    images.car,
-                  ),
-                ),
+                markerId: driverId,
+                position: point,
+                icon: car,
               ));
             }
           } catch (e) {
             print(e);
             //showMessage(e.toString());
           }
-        } else if (homeNotifier.conditionKey == 'order_started') {
-          driverCounter.setIsStart(homeNotifier.conditionKey);
-        } else if (homeNotifier.conditionKey == 'order_driver_arrived') {
+        } else if (conditionKey == 'order_started') {
+          driverCounter.setIsStart(conditionKey);
+        } else if (conditionKey == 'order_driver_arrived') {
           player.play(AssetSource('raw/arrived.mp3'));
           NotificationService().showNotification(
             888,
@@ -229,19 +217,19 @@ class HomeNotifier with ChangeNotifier {
             event.data['message'].toString(),
             '',
           );
-        } else if (homeNotifier.conditionKey == 'order_completed') {
+        } else if (conditionKey == 'order_completed') {
           socket.exit();
+          isWhere = true;
           mapNotifier.clearAll();
           driverModel = null;
           if (homeContext != null) {
             showBottomDialog(
-                RatingDialog(
-                  data: event.data,
-                ),
-                homeContext!());
+              RatingDialog(data: event.data),
+              homeContext!(),
+            );
           }
           Future.delayed(const Duration(seconds: 1)).then((value) {
-            homeNotifier.conditionKey = '';
+            conditionKey = '';
             notifyListeners();
             whereGoController.setText('');
             whereController.setText('');
@@ -249,12 +237,12 @@ class HomeNotifier with ChangeNotifier {
           if (event.data['bonus'] is Map<String, dynamic>) {
             //showBonus(context,event.data['bonus']);
           }
-        } else if (homeNotifier.conditionKey == 'order_cancelled') {
+        } else if (conditionKey == 'order_cancelled') {
           deleteServices();
           driverModel = null;
           deleteLastorder();
           socket.exit();
-          homeNotifier.conditionKey = '';
+          conditionKey = '';
           notifyListeners();
         }
       } catch (e) {
@@ -281,10 +269,10 @@ class HomeNotifier with ChangeNotifier {
     } else {
       if (result.step == 3) {
       } else if (result.step == 4) {
-        homeNotifier.conditionKey == 'order_started';
-        driverCounter.setIsStart(homeNotifier.conditionKey);
+        conditionKey == 'order_started';
+        driverCounter.setIsStart(conditionKey);
       } else if (result.step == 2) {
-        homeNotifier.conditionKey == 'order_accepted';
+        conditionKey == 'order_accepted';
         driverModel = DriverModel.fromJson(result.data);
       }
       notifyListeners();

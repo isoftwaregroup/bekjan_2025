@@ -1,4 +1,4 @@
-#Tue May 07 20:57:04 UZT 2024
-base.0=/Users/bunyodbek/StudioProjects/bekjan/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+#Tue Aug 20 11:38:06 UZT 2024
+base.0=/Users/asrorjonturgunboyev/FlutterProjects/bekjan/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

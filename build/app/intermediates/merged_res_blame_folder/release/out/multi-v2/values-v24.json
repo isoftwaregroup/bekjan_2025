@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.bekjan.app-mergeReleaseResources-27:/values-v24/values-v24.xml",
+            "outputFile": "com.example.bekjan.app-mergeReleaseResources-31:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/bunyodbek/.gradle/caches/transforms-3/3d23c49eedaade4d1eb716070cc72e8c/transformed/media-1.1.0/res/values-v24/values-v24.xml",
+                    "source": "/Users/asrorjonturgunboyev/.gradle/caches/transforms-3/ca2fb09c7fa623f1d438d1b98817ddb9/transformed/media-1.1.0/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

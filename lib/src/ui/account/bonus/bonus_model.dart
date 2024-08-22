@@ -9,7 +9,6 @@ class BonuseModel {
     required this.reason,
     required this.type,
   });
-
   String id;
   int value;
   String datetime;

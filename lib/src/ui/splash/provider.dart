@@ -20,6 +20,8 @@ class SplashNotifier with ChangeNotifier {
 
   Future<void> getSplash() async {
     MainModel result = await client.get(Links.splash);
+
+    print("splashScreen ${result.title}");
     if (result.status == 200) {
       pages =
           List<PageModel>.from(result.data.map((x) => PageModel.fromJson(x)));
