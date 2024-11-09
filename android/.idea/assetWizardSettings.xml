@@ -79,8 +79,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$USER_HOME$/Desktop/logolar/bekjaan logo.jpg" />
-                                                <entry key="scalingPercent" value="61" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/../assets/logo.png" />
+                                                <entry key="scalingPercent" value="70" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -108,12 +108,6 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
-                                    </map>
-                                  </option>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ffcd0e" />
                                     </map>
                                   </option>
                                 </PersistentState>
