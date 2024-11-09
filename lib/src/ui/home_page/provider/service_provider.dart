@@ -48,6 +48,8 @@ class Counter with ChangeNotifier {
   List<TarifModel> tarifs = [];
   List<SericeModel> services = [];
   List<PlaceModel> places = [];
+  List<PlaceModel> searchedPlaces = [];
+  List<String> resultData = [];
   FocusNode whereNode = FocusNode(), whereGoNode = FocusNode();
   bool? isWhereHide;
   bool isPositionChanget = false;
@@ -110,12 +112,36 @@ class Counter with ChangeNotifier {
     notifyListeners();
   }
 
+
+  Future searchPlaces({String value = ''}) async{
+    MainModel result = await client.get('${Links.searchPlaces}$value');
+    try {
+      if(result.status==200){
+            if (result.data is List) {
+              searchedPlaces = List<PlaceModel>.from(result.data.map((x) => PlaceModel.fromJson(x)));
+            resultData =   searchedPlaces.map((e) {
+                return e.name;
+              },).toList();
+
+            }
+          }
+    } catch (e) {
+      debugPrint('search places getting error: $e');
+    } finally {
+
+    }
+    notifyListeners();
+  }
+
   void setPlaces() async {
+    debugPrint('get places');
     final int day = pref.getInt('lastPlacesSettedDay') ?? -1;
     final int today = DateTime.now().day;
     if (day != today) {
       MainModel result = await client.get(Links.places);
+
       if (result.status == 200) {
+        print('place 200 keldimi');
         if (result.data is List) {
           places = List<PlaceModel>.from(
               result.data.map((x) => PlaceModel.fromJson(x)));
@@ -124,6 +150,7 @@ class Counter with ChangeNotifier {
               List.generate(places.length,
                   (index) => jsonEncode(places[index].toJson())));
           pref.setInt('lastPlacesSettedDay', today);
+          print('lola $places');
         }
       }
     } else {

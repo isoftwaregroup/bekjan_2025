@@ -31,8 +31,9 @@ class Links {
   static const String drawLink = '/api/common/direction-with-cost';
   static const String contact = '/api/common/contact';
   static const String places = '/api/common/place-name';
+  static const String searchPlaces = '/api/common/search-place-name?key=';
   static const String searchAdress =
-      'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCR9BC6v0iDlFDZ4in6Uw7Y9sjJui3oThg&input=';
+      'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyDpocPm3xrnmXD8YRsVy8fYFZFerzCQZ54&input=';
   static const String getLocationFromAdress =
       'https://maps.googleapis.com/maps/api/geocode/json?address=';
   static const String addressFromLocation =
