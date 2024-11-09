@@ -1,18 +1,18 @@
-import 'package:bekjan/src/helpers/dialogs.dart';
-import 'package:bekjan/src/helpers/widgets.dart';
-import 'package:bekjan/src/ui/account/account.dart';
-import 'package:bekjan/src/ui/account/provider.dart';
-import 'package:bekjan/src/ui/home_page/provider/home_provider.dart';
-import 'package:bekjan/src/ui/home_page/provider/map_provider.dart';
-import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
-import 'package:bekjan/src/ui/home_page/util.dart';
-import 'package:bekjan/src/ui/home_page/widgets/call_dispecher_screen.dart';
-import 'package:bekjan/src/ui/home_page/widgets/load_order.dart';
-import 'package:bekjan/src/ui/home_page/widgets/location_checker.dart';
-import 'package:bekjan/src/ui/home_page/widgets/map.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/widgets/widgets.dart';
+import 'package:app/src/helpers/dialogs.dart';
+import 'package:app/src/helpers/widgets.dart';
+import 'package:app/src/ui/account/account.dart';
+import 'package:app/src/ui/account/provider.dart';
+import 'package:app/src/ui/home_page/provider/home_provider.dart';
+import 'package:app/src/ui/home_page/provider/map_provider.dart';
+import 'package:app/src/ui/home_page/provider/service_provider.dart';
+import 'package:app/src/ui/home_page/util.dart';
+import 'package:app/src/ui/home_page/widgets/call_dispecher_screen.dart';
+import 'package:app/src/ui/home_page/widgets/load_order.dart';
+import 'package:app/src/ui/home_page/widgets/location_checker.dart';
+import 'package:app/src/ui/home_page/widgets/map.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,7 +25,6 @@ import '../../helpers/ConnectionListner.dart';
 import '../../helpers/apptheme.dart';
 import '../../network/client.dart';
 import '../../network/http_result.dart';
-import '../../network/socket.dart';
 import '../../variables/links.dart';
 import '../../variables/util_variables.dart';
 import '../../widgets/Toast.dart';
@@ -93,9 +92,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if(state == AppLifecycleState.inactive){
-
-    }else if(state == AppLifecycleState.resumed){
+    if (state == AppLifecycleState.inactive) {
+    } else if (state == AppLifecycleState.resumed) {
       checkStatus(false);
     }
     super.didChangeAppLifecycleState(state);
@@ -104,13 +102,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    if(mapNotifier.googleMap != null){
+    if (mapNotifier.googleMap != null) {
       mapNotifier.googleMap!.dispose();
     }
     super.dispose();
   }
 
   ScrollPhysics physics = const AlwaysScrollableScrollPhysics();
+
   @override
   Widget build(BuildContext context) {
     final b = MediaQuery.of(context).viewInsets.bottom;
@@ -129,9 +128,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 return PopScope(
                   canPop: canPop(),
                   onPopInvoked: (didPop) {
-                    if (canPop()) {
-                      return;
-                    }
+                    if (canPop()) return;
                     notifier.whereGoController.setText('');
                     mapNotifier.markers.clear();
                     notifier.isWhere = true;
@@ -191,7 +188,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               GestureDetector(
-                                onTap: (){
+                                onTap: () {
                                   mapNotifier.zoom = 17;
                                   mapNotifier.moveToMyPosition();
                                 },
@@ -231,7 +228,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                               onCancelOrder: () {
                                 deleteServices();
                                 deleteLastorder();
-                                socket.exit();
+                                // socket.d();
                                 setState(() {
                                   homeNotifier.conditionKey = '';
                                 });
@@ -263,7 +260,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       } else if (result.step == 5) {
         deleteServices();
         deleteLastorder();
-        if(homeNotifier.conditionKey != 'order_completed' && isEnter){
+        if (homeNotifier.conditionKey != 'order_completed' && isEnter) {
           showBottomDialog(
             RatingDialog(
               data: result.data,
@@ -274,27 +271,29 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       } else {
         if (result.step == 4) {
           String key = '';
-          try{
+          try {
             key = result.data['status']['number'].toString();
-          }catch(e){}
-          if(key == '1' && homeNotifier.conditionKey != 'order_accepted'){
+          } catch (e) {}
+          if (key == '1' && homeNotifier.conditionKey != 'order_accepted') {
             homeNotifier.conditionKey = 'order_accepted';
             homeNotifier.driverModel = DriverModel.fromJson(result.data);
-          }else if(key == '2' && homeNotifier.conditionKey != 'order_driver_arrived'){
+          } else if (key == '2' &&
+              homeNotifier.conditionKey != 'order_driver_arrived') {
             homeNotifier.conditionKey = 'order_driver_arrived';
-          } else if(key == '3' && homeNotifier.conditionKey != 'order_started'){
+          } else if (key == '3' &&
+              homeNotifier.conditionKey != 'order_started') {
             homeNotifier.conditionKey = 'order_started';
             driverCounter.setIsStart(homeNotifier.conditionKey);
             homeNotifier.driverModel = DriverModel.fromJson(result.data);
           }
         } else if (result.step == 1) {
-          if(homeNotifier.conditionKey != 'order_initial'){
+          if (homeNotifier.conditionKey != 'order_initial') {
             homeNotifier.conditionKey = 'order_initial';
           }
         }
-        socket.init();
-        socket.listen(homeNotifier.listenSocket);
-        socket.onReconnect = homeNotifier.onReconnect;
+        // socket.init();
+        // socket.listen(homeNotifier.listenSocket);
+        // socket.onReconnect = homeNotifier.onReconnect;
         double? lat = double.tryParse(data['latitude1'].toString());
         double? lon = double.tryParse(data['longitude1'].toString());
         String title = data['address1'].toString();

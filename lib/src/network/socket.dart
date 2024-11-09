@@ -1,165 +1,144 @@
+import 'dart:async';
 import 'dart:convert';
 
-import 'package:bekjan/src/helpers/ConnectionListner.dart';
-import 'package:bekjan/src/variables/links.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import '../helpers/log/event_provider.dart';
-import '../helpers/notification_service.dart';
-import 'http_result.dart';
+import 'package:app/src/network/http_result.dart';
+import 'package:app/src/ui/home_page/provider/home_provider.dart';
+import 'package:app/src/variables/links.dart';
+import 'package:app/src/variables/util_variables.dart';
+import 'package:flutter/material.dart';
+import 'package:web_socket_channel/io.dart';
 
-/// bu qism "_socketProvider" ni qayta yaratilmasligi uchun zarur.
 SocketConnection? _socketProvider;
+
 SocketConnection get socket {
   _socketProvider ??= SocketConnection();
   return _socketProvider!;
 }
 
 class SocketConnection {
-  WebSocketChannel? _channel;
-  Function(MainModel event)? _listenfun;
-  Function? onReconnect;
-  dynamic _pingMessage;
-  bool isStop = false, isPlaying = false;
-  void listen(Function(MainModel? model) listen) {
-    _listenfun = listen;
-  }
+  IOWebSocketChannel? _webSocket;
+  bool shouldReconnect = true;
 
-  void init() async {
-    await NotificationService().createChannel('LIDER_TAXI');
-    connectionListner.socketConnectionListner = (isOnline) {
-      if (isOnline) {
-        _connectWC();
-      }
-    };
-    _connectWC();
-  }
+  bool _isConnected = false;
 
-  Future<void> close() async {
-    if (_channel != null) {
-      onReconnect = null;
-      return await _channel!.sink.close();
+  bool get isConnected => _isConnected;
+
+  set isConnected(bool value) {
+    if (_isConnected != value) {
+      _isConnected = value;
+      sendSocketStatusBroadcast();
     }
   }
 
-  Future<void> exit() async {
-    close();
-    isStop = true;
+  StreamSubscription? _reconnectJob;
+  bool reconnecting = false;
+
+  final ValueNotifier<bool> socketLive = ValueNotifier<bool>(false);
+
+  void sendSocketStatusBroadcast() {
+    socketLive.value = isConnected;
   }
 
-  void _connectWC() async {
+  void initSocket() {
+    print('Socket ochildi');
     String token = pref.getString('token') ?? '';
-    if (isStop) {
-      isStop = false;
+
+    if (_reconnectJob != null || isConnected) {
+      print('Socket ulangan qayta ulanmaslik uchun!');
       return;
     }
-    if (token.isNotEmpty) {
-      try {
-        print('connecting to websocket ...');
-        eventNotifier.log('connecting to websocket ...');
-        if (_channel != null) {
-          try {
-            print('on Close');
-            _channel!.sink.close().then((value) => print('closed'));
-          } catch (e) {
-            print('close error: $e');
-          }
-          _channel = null;
-        }
-        print('connecting');
-        eventNotifier.log('connecting');
-        _channel = WebSocketChannel.connect(
-          Uri.parse('${Links.socketLink}$token'),
-        );
-        await _channel!.ready;
-        // _sendPing();
-        _channel!.stream.listen(
-          (event) {
-            MainModel model = MainModel.fromJson(jsonDecode(event));
-            print('socket event: $event');
-            if (model.key != 'pong') {
-              eventNotifier.log(event.toString());
-            }
-            if (model.key == 'pong') {
-              _pingMessage = model.data['message'];
-            } else if (_listenfun != null) {
-              _listenfun!(model);
-            }
-          },
-          onDone: () async {
-            print('on socket done.');
-            eventNotifier.log('on socket done.');
-            if (_pingMessage == null) {
-              await Future.delayed(const Duration(seconds: 10));
-            }
-            _sendPing();
-          },
-          onError: (e) async {
-            print('on error connecting socket.');
-            eventNotifier.log('on error connecting socket.');
-            // _tryAgain();
-          },
-        );
-      } catch (e) {
-        print('websocket connecting error');
-        eventNotifier.log('websocket connecting error');
-        _tryAgain();
-      }
-    }
-    //_tryAgain();
+
+    connectSocket(token);
+    reconnectJob(token);
   }
 
-  void _sendPing() async {
-    if (_channel != null) {
-      try {
-        _pingMessage = null;
-        _channel!.sink.add('ping');
-        print('ping sended');
-        await Future.delayed(const Duration(seconds: 30));
-      } catch (e) {
-        print('cannot send ping: $e');
-        eventNotifier.log('cannot send ping: $e');
-      }
-      if (_pingMessage != 'pong') {
-        _tryAgain();
-      } else {
-        _sendPing();
-      }
-    } else {
-      print('channel null');
-      eventNotifier.log('channel null');
+  void connectSocket(String token) async {
+    shouldReconnect = true;
+
+    try {
+      print('Socket ulandi');
+      final uri = Uri.parse('${Links.socketLink}$token');
+      _webSocket = IOWebSocketChannel.connect(uri);
+      _webSocket?.stream.listen((message) {
+        onMessage(message);
+        final jsonData = jsonDecode(message);
+        MainModel? data = MainModel.fromJson(jsonData);
+        homeNotifier.listenSocket(data);
+      }, onDone: () {
+        onClose();
+      }, onError: (error) {
+        onError(error, token);
+      });
+
+      isConnected = true;
+      socketLive.value = true;
+      print("WebSocket connected");
+    } catch (error) {
+      onError(error, token);
     }
   }
 
-  void _tryAgain() async {
-    print('next conection is 1 seconds later');
-    eventNotifier.log('next conection is 1 seconds later');
-    if (_channel != null) {
-      try {
-        _channel!.sink.close().then((value) => print('closed'));
-        _channel = null;
-      } catch (e) {
-        print('close error: $e');
-      }
-    }
-    await Future.delayed(const Duration(seconds: 10)).then((value) {
-      _connectWC();
-      if (onReconnect != null) {
-        onReconnect!();
-      }
-    });
+  void onMessage(String data) {
+    print("xabar: $data");
+    // final orderResponse = jsonDecode(data);
+
+    // if (orderResponse['key'] == "order_new") {
+    //   print("New order received");
+    //   onMessageReceived();
+    // }
+
+    // handleSocketMessage(data);
   }
 
-  // @pragma('vm:entry-point')
-  // void init(){
-  //   Workmanager().executeTask((task, inputData) {
-  //     connectionListner.socketConnectionListner = (isOnline){
-  //       if(isOnline){
-  //         _connectWC();
-  //       }
-  //     };
-  //     _connectWC();
-  //     return Future.value(true);
-  //   });
-  // }
+  void onClose() {
+    String token = pref.getString('token') ?? '';
+    print("Socket closed");
+    isConnected = false;
+    socketLive.value = false;
+    // userPreferenceManager.saveToggleState(false);
+
+    if (shouldReconnect) {
+      reconnectJob(token);
+    }
+  }
+
+  void onError(dynamic error, String token) {
+    print("Socket error: $error");
+    isConnected = false;
+    socketLive.value = false;
+    if (shouldReconnect) {
+      reconnectJob(token);
+    }
+  }
+
+  void reconnectJob(String token) {
+    if (reconnecting || isConnected) return;
+
+    reconnecting = true;
+    _reconnectJob = Future.delayed(
+        Duration(milliseconds: SocketUtil.RECONNECT_DELAY_MS), () {
+      reconnecting = false;
+      connectSocket(token);
+    }).asStream().listen((_) {});
+  }
+
+  void disconnectSocket() {
+    isConnected = false;
+    shouldReconnect = false;
+    _reconnectJob?.cancel();
+    _reconnectJob = null;
+    _webSocket?.sink.close();
+  }
+}
+
+class SocketUtil {
+  static const int RECONNECT_DELAY_MS = 5000;
+}
+
+enum SocketChecker {
+  ORDER_ACCEPTED,
+  ORDER_CANCELLED,
+  ORDER_DRIVER_ARRIVED,
+  ORDER_STARTED,
+  ORDER_COMPLETED,
 }

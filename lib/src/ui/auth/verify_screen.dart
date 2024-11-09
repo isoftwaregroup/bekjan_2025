@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:android_play_install_referrer/android_play_install_referrer.dart';
-import 'package:bekjan/src/network/client.dart';
-import 'package:bekjan/src/ui/home_page/home_screen.dart';
-import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
-import 'package:bekjan/src/utils/utils.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/links.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
-import 'package:bekjan/src/widgets/Toast.dart';
+import 'package:app/src/network/client.dart';
+import 'package:app/src/ui/home_page/home_screen.dart';
+import 'package:app/src/ui/home_page/provider/service_provider.dart';
+import 'package:app/src/utils/utils.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/links.dart';
+import 'package:app/src/variables/util_variables.dart';
+import 'package:app/src/widgets/Toast.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -326,13 +326,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
     });
     int? userId;
     if (Platform.isAndroid) {
-      try{
+      try {
         ReferrerDetails referrerDetails =
-        await AndroidPlayInstallReferrer.installReferrer;
+            await AndroidPlayInstallReferrer.installReferrer;
         print(
             'referrerDetails.installReferrer: ${referrerDetails.installReferrer}');
         userId = int.tryParse(referrerDetails.installReferrer.toString());
-      }catch(e){}
+      } catch (e) {}
     }
     SharedPreferences pref = await SharedPreferences.getInstance();
     String deviceName = "";

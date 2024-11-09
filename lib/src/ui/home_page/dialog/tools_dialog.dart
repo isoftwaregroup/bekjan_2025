@@ -1,10 +1,10 @@
-import 'package:bekjan/src/helpers/apptheme.dart';
-import 'package:bekjan/src/ui/home_page/models/service_model.dart';
-import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
-import 'package:bekjan/src/widgets/widgets.dart';
+import 'package:app/src/helpers/apptheme.dart';
+import 'package:app/src/ui/home_page/models/service_model.dart';
+import 'package:app/src/ui/home_page/provider/service_provider.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/util_variables.dart';
+import 'package:app/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';

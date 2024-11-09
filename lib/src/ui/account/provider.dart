@@ -1,8 +1,8 @@
-import 'package:bekjan/src/network/client.dart';
-import 'package:bekjan/src/network/http_result.dart';
-import 'package:bekjan/src/ui/account/app_info.dart';
-import 'package:bekjan/src/ui/auth/model/user.dart';
-import 'package:bekjan/src/variables/links.dart';
+import 'package:app/src/network/client.dart';
+import 'package:app/src/network/http_result.dart';
+import 'package:app/src/ui/account/app_info.dart';
+import 'package:app/src/ui/auth/model/user.dart';
+import 'package:app/src/variables/links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -71,9 +71,7 @@ class UserNotifier with ChangeNotifier {
         final AboutUs aboutUs = AboutUs.fromJson(result.data);
         PackageInfo packageInfo = await PackageInfo.fromPlatform();
         aboutData = aboutUs.copyWith(
-          name: packageInfo.appName,
-          version_name: packageInfo.version
-        );
+            name: packageInfo.appName, version_name: packageInfo.version);
         notifyListeners();
       }
     }

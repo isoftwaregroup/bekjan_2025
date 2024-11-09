@@ -1,7 +1,7 @@
-import 'package:bekjan/src/helpers/apptheme.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
+import 'package:app/src/helpers/apptheme.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';

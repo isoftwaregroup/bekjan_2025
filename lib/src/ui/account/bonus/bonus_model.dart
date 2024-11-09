@@ -1,4 +1,4 @@
-import 'package:bekjan/src/ui/home_page/models/order_model.dart';
+import 'package:app/src/ui/home_page/models/order_model.dart';
 
 class BonuseModel {
   BonuseModel({

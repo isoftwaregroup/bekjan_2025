@@ -1,16 +1,15 @@
+import 'package:app/src/helpers/notification_service.dart';
+import 'package:app/src/helpers/widgets.dart';
+import 'package:app/src/network/client.dart';
+import 'package:app/src/network/http_result.dart';
+import 'package:app/src/network/socket.dart';
+import 'package:app/src/ui/home_page/dialog/set_rating.dart';
+import 'package:app/src/ui/home_page/provider/driver_provider.dart';
+import 'package:app/src/ui/home_page/provider/service_provider.dart';
+import 'package:app/src/utils/utils.dart';
+import 'package:app/src/variables/links.dart';
+import 'package:app/src/variables/util_variables.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:bekjan/src/helpers/notification_service.dart';
-import 'package:bekjan/src/helpers/widgets.dart';
-import 'package:bekjan/src/network/client.dart';
-import 'package:bekjan/src/network/http_result.dart';
-import 'package:bekjan/src/network/socket.dart';
-import 'package:bekjan/src/ui/home_page/dialog/set_rating.dart';
-import 'package:bekjan/src/ui/home_page/provider/driver_provider.dart';
-import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
-import 'package:bekjan/src/utils/utils.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/links.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -28,6 +27,7 @@ ChangeNotifierProvider<HomeNotifier> homeProvider =
 });
 
 HomeNotifier? _homeNotifier;
+
 HomeNotifier get homeNotifier {
   _homeNotifier ??= HomeNotifier();
   return _homeNotifier!;
@@ -148,11 +148,8 @@ class HomeNotifier with ChangeNotifier {
       );
       if (result.status == 200) {
         saveCurrentOrder(info);
-
         saveOrderServices();
-        socket.init();
-        socket.listen(listenSocket);
-        socket.onReconnect = onReconnect;
+        socket.initSocket();
         conditionKey = 'order_initial';
       }
       orderLoad = false;
@@ -161,6 +158,7 @@ class HomeNotifier with ChangeNotifier {
   }
 
   void listenSocket(MainModel? event) {
+    print("xabar listen");
     if (event != null) {
       conditionKey = event.key;
       //showMessage(conditionKey);
@@ -176,8 +174,7 @@ class HomeNotifier with ChangeNotifier {
               LatLng point = LatLng(lat, lon);
               if (mapNotifier.driverRoute.isEmpty) {
                 if (mapNotifier.markers[whereId] is Marker) {
-                  final marker =
-                      mapNotifier.markers[whereId] as Marker;
+                  final marker = mapNotifier.markers[whereId] as Marker;
                   mapNotifier.drawRoute(false, point, marker.position);
                 }
               } else {
@@ -190,8 +187,7 @@ class HomeNotifier with ChangeNotifier {
                         (index) => LatLon(points[index].latitude,
                             points[index].longitude)))) {
                   if (mapNotifier.markers[whereId] is Marker) {
-                    final marker =
-                        mapNotifier.markers[whereId] as Marker;
+                    final marker = mapNotifier.markers[whereId] as Marker;
                     mapNotifier.drawRoute(false, point, marker.position);
                   }
                 }
@@ -218,7 +214,7 @@ class HomeNotifier with ChangeNotifier {
             '',
           );
         } else if (conditionKey == 'order_completed') {
-          socket.exit();
+          socket.disconnectSocket();
           isWhere = true;
           mapNotifier.clearAll();
           driverModel = null;
@@ -241,7 +237,7 @@ class HomeNotifier with ChangeNotifier {
           deleteServices();
           driverModel = null;
           deleteLastorder();
-          socket.exit();
+          socket.disconnectSocket();
           conditionKey = '';
           notifyListeners();
         }

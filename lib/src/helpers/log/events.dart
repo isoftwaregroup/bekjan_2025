@@ -1,6 +1,6 @@
-import 'package:bekjan/src/helpers/apptheme.dart';
-import 'package:bekjan/src/helpers/log/event_provider.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
+import 'package:app/src/helpers/apptheme.dart';
+import 'package:app/src/helpers/log/event_provider.dart';
+import 'package:app/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

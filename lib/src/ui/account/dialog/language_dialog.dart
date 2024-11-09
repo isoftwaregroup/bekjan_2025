@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';

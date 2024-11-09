@@ -1,7 +1,7 @@
-import 'package:bekjan/src/helpers/apptheme.dart';
-import 'package:bekjan/src/ui/home_page/provider/map_provider.dart';
-import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
-import 'package:bekjan/src/utils/utils.dart';
+import 'package:app/src/helpers/apptheme.dart';
+import 'package:app/src/ui/home_page/provider/map_provider.dart';
+import 'package:app/src/ui/home_page/provider/service_provider.dart';
+import 'package:app/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -97,18 +97,18 @@ class _MapScreenState extends State<MapScreen> {
           onCameraMoveStarted: () {
             print('camera start');
             notifier.mapScrollstate.sink.add(true);
-           if (homeNotifier.isWhere == true) {
+            if (homeNotifier.isWhere == true) {
               notifier.markers
                   .removeWhere((key, value) => homeNotifier.whereId == key);
-            } else if (homeNotifier.isWhere == false){
-              notifier.markers.removeWhere(
-                      (key, value) => key == homeNotifier.whereGoId);
+            } else if (homeNotifier.isWhere == false) {
+              notifier.markers
+                  .removeWhere((key, value) => key == homeNotifier.whereGoId);
             }
           },
           onCameraIdle: () {
             print('camera end');
             notifier.mapScrollstate.sink.add(false);
-            if(homeNotifier.isWhere == null){
+            if (homeNotifier.isWhere == null) {
               return;
             }
             serviceCounter.isPositionChanget = true;
@@ -116,14 +116,11 @@ class _MapScreenState extends State<MapScreen> {
                 homeNotifier.isWhere != null) {
               if (distance > 10 || homeNotifier.isWhere != false) {
                 final isWhere = homeNotifier.isWhere;
-                homeNotifier
-                    .setStreet(notifier.centerPosition)
-                    .then((value) {
+                homeNotifier.setStreet(notifier.centerPosition).then((value) {
                   if (isWhere == true) {
                     homeNotifier.whereController.setText(value.toString());
                   } else if (isWhere == false) {
-                    homeNotifier.whereGoController
-                        .setText(value.toString());
+                    homeNotifier.whereGoController.setText(value.toString());
                   }
                 });
               }
@@ -135,5 +132,4 @@ class _MapScreenState extends State<MapScreen> {
       },
     );
   }
-
 }

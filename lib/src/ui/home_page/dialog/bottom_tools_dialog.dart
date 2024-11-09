@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:bekjan/src/helpers/widgets.dart';
-import 'package:bekjan/src/ui/home_page/dialog/tarif_dialog.dart';
-import 'package:bekjan/src/ui/home_page/dialog/tools_dialog.dart';
-import 'package:bekjan/src/ui/home_page/widgets/tarif_item.dart';
-import 'package:bekjan/src/utils/utils.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
-import 'package:bekjan/src/widgets/Toast.dart';
+import 'package:app/src/helpers/widgets.dart';
+import 'package:app/src/ui/home_page/dialog/tarif_dialog.dart';
+import 'package:app/src/ui/home_page/dialog/tools_dialog.dart';
+import 'package:app/src/ui/home_page/widgets/tarif_item.dart';
+import 'package:app/src/utils/utils.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/util_variables.dart';
+import 'package:app/src/widgets/Toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -328,14 +328,18 @@ class BottomToolsdialog extends StatelessWidget {
                                   notifier.isWhereHide = null;
                                   homeNotifier.update();
                                   mapNotifier.mapScrollstate.sink.add(false);
-                                  mapNotifier.drawRoute(
+                                  mapNotifier
+                                      .drawRoute(
                                     true,
                                     whereMarker.position,
                                     whereGoMarker!.position,
-                                  ).then((result){
-                                    if(result.status != 200){
-                                      toast(context: context, txt: result.message);
-                                    }else{
+                                  )
+                                      .then((result) {
+                                    if (result.status != 200) {
+                                      toast(
+                                          context: context,
+                                          txt: result.message);
+                                    } else {
                                       homeNotifier.isWhere = null;
                                       mapNotifier.update();
                                       homeNotifier.update();
@@ -443,7 +447,7 @@ class BottomToolsdialog extends StatelessWidget {
     final marker = Marker(
       markerId: id,
       position: position,
-      onTap: (){
+      onTap: () {
         mapNotifier.markers.removeWhere((key, value) {
           if (homeNotifier.conditionKey.isEmpty && key == id) {
             homeNotifier.isWhere = id == homeNotifier.whereId;

@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:bekjan/src/helpers/ConnectionListner.dart';
-import 'package:bekjan/src/ui/account/provider.dart';
-import 'package:bekjan/src/ui/auth/enter_screen.dart';
-import 'package:bekjan/src/ui/home_page/home_screen.dart';
-import 'package:bekjan/src/ui/home_page/provider/map_provider.dart';
-import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
-import 'package:bekjan/src/ui/home_page/util.dart';
-import 'package:bekjan/src/ui/home_page/widgets/call_dispecher_screen.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/links.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
-import 'package:bekjan/src/widgets/Toast.dart';
-import 'package:bekjan/src/widgets/widgets.dart';
+import 'package:app/src/helpers/ConnectionListner.dart';
+import 'package:app/src/ui/account/provider.dart';
+import 'package:app/src/ui/auth/enter_screen.dart';
+import 'package:app/src/ui/home_page/home_screen.dart';
+import 'package:app/src/ui/home_page/provider/map_provider.dart';
+import 'package:app/src/ui/home_page/provider/service_provider.dart';
+import 'package:app/src/ui/home_page/util.dart';
+import 'package:app/src/ui/home_page/widgets/call_dispecher_screen.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/links.dart';
+import 'package:app/src/variables/util_variables.dart';
+import 'package:app/src/widgets/Toast.dart';
+import 'package:app/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,16 +38,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     setDispacherLink();
 
-
     if ((pref.getString('token') ?? '').isNotEmpty) {
       userNotifier.getUser();
       setOperations();
     } else {
-
-
       splashNotifier.getSplash().onError((error, stackTrace) {
-
-
         toast(context: context, txt: error.toString());
       });
     }

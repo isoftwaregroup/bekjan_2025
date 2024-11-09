@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:app/src/helpers/apptheme.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/util_variables.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:bekjan/src/helpers/apptheme.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

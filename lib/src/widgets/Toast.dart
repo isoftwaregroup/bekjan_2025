@@ -1,4 +1,4 @@
-import 'package:bekjan/src/variables/util_variables.dart';
+import 'package:app/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
 
 void toast(

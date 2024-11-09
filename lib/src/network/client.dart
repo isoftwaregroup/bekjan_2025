@@ -1,6 +1,6 @@
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/links.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/links.dart';
+import 'package:app/src/variables/util_variables.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_pretty_dio_logger/flutter_pretty_dio_logger.dart';

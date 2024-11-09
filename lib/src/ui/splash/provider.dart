@@ -1,6 +1,6 @@
-import 'package:bekjan/src/network/client.dart';
-import 'package:bekjan/src/network/http_result.dart';
-import 'package:bekjan/src/variables/links.dart';
+import 'package:app/src/network/client.dart';
+import 'package:app/src/network/http_result.dart';
+import 'package:app/src/variables/links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

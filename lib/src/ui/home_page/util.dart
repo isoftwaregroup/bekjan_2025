@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
+import 'package:app/src/ui/home_page/provider/service_provider.dart';
 import 'package:maps_toolkit/maps_toolkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

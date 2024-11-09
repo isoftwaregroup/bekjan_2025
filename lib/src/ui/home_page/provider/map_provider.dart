@@ -1,18 +1,17 @@
 import 'dart:async';
 
-import 'package:bekjan/src/helpers/apptheme.dart';
-import 'package:bekjan/src/helpers/position_maneger.dart';
-import 'package:bekjan/src/network/client.dart';
-import 'package:bekjan/src/network/http_result.dart';
-import 'package:bekjan/src/ui/home_page/models/marker_model.dart';
-import 'package:bekjan/src/ui/home_page/models/tarif_odel.dart';
-import 'package:bekjan/src/ui/home_page/provider/home_provider.dart';
-import 'package:bekjan/src/ui/home_page/provider/service_provider.dart';
-import 'package:bekjan/src/utils/utils.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/links.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
+import 'package:app/src/helpers/position_maneger.dart';
+import 'package:app/src/network/client.dart';
+import 'package:app/src/network/http_result.dart';
+import 'package:app/src/ui/home_page/models/marker_model.dart';
+import 'package:app/src/ui/home_page/models/tarif_odel.dart';
+import 'package:app/src/ui/home_page/provider/home_provider.dart';
+import 'package:app/src/ui/home_page/provider/service_provider.dart';
+import 'package:app/src/utils/utils.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/links.dart';
+import 'package:app/src/variables/util_variables.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +26,7 @@ ChangeNotifierProvider<MapNotifier> mapProvider =
 });
 
 MapNotifier? _mapNotifier;
+
 MapNotifier get mapNotifier {
   _mapNotifier ??= MapNotifier();
   return _mapNotifier!;
@@ -43,6 +43,7 @@ class MapNotifier with ChangeNotifier {
   List<LatLng> route = [];
   List<LatLng> driverRoute = [];
   StreamController<bool> mapScrollstate = StreamController<bool>.broadcast();
+
   Stream<bool> get mapScrollStream => mapScrollstate.stream;
 
   void update() {
@@ -100,7 +101,7 @@ class MapNotifier with ChangeNotifier {
   }
 
   /// Xarita markazini foydalanuvchi turgan joyga olib boradi
-  void moveToPosition(LatLng point){
+  void moveToPosition(LatLng point) {
     if (googleMap != null) {
       googleMap!.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -111,18 +112,14 @@ class MapNotifier with ChangeNotifier {
     }
     serviceCounter.isPositionChanget = true;
     mapScrollstate.sink.add(false);
-    if (homeNotifier.conditionKey.isEmpty &&
-        homeNotifier.isWhere != null) {
+    if (homeNotifier.conditionKey.isEmpty && homeNotifier.isWhere != null) {
       if (distance > 10 || homeNotifier.isWhere != false) {
         final isWhere = homeNotifier.isWhere;
-        homeNotifier
-            .setStreet(point)
-            .then((value) {
+        homeNotifier.setStreet(point).then((value) {
           if (isWhere == true) {
             homeNotifier.whereController.setText(value.toString());
           } else if (isWhere == false) {
-            homeNotifier.whereGoController
-                .setText(value.toString());
+            homeNotifier.whereGoController.setText(value.toString());
           }
         });
       }
@@ -159,7 +156,7 @@ class MapNotifier with ChangeNotifier {
           if (coordinates.isNotEmpty) {
             final line = List<LatLng>.generate(
                 coordinates.length,
-                    (index) =>
+                (index) =>
                     LatLng(coordinates[index].last, coordinates[index].first));
             if (isUser) {
               route = line;

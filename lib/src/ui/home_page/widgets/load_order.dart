@@ -1,11 +1,10 @@
+import 'package:app/src/ui/dialogs/warning_dialog.dart';
+import 'package:app/src/ui/home_page/provider/home_provider.dart';
+import 'package:app/src/ui/home_page/util.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/util_variables.dart';
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:bekjan/src/network/socket.dart';
-import 'package:bekjan/src/ui/dialogs/warning_dialog.dart';
-import 'package:bekjan/src/ui/home_page/provider/home_provider.dart';
-import 'package:bekjan/src/ui/home_page/util.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -116,7 +115,6 @@ class _LoadOrderState extends State<LoadOrder> with TickerProviderStateMixin {
                       if (await cancelCurrentOrder('')) {
                         deleteServices();
                         deleteLastorder();
-                        socket.exit();
                         homeNotifier.conditionKey = '';
                         homeNotifier.update();
                       }

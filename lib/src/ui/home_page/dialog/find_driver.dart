@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:bekjan/src/helpers/apptheme.dart';
-import 'package:bekjan/src/helpers/widgets.dart';
-import 'package:bekjan/src/ui/home_page/models/order_model.dart';
-import 'package:bekjan/src/ui/home_page/provider/driver_provider.dart';
-import 'package:bekjan/src/variables/icons.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/links.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
-import 'package:bekjan/src/widgets/Toast.dart';
+import 'package:app/src/helpers/apptheme.dart';
+import 'package:app/src/helpers/widgets.dart';
+import 'package:app/src/ui/home_page/models/order_model.dart';
+import 'package:app/src/ui/home_page/provider/driver_provider.dart';
+import 'package:app/src/variables/icons.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/links.dart';
+import 'package:app/src/variables/util_variables.dart';
+import 'package:app/src/widgets/Toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';

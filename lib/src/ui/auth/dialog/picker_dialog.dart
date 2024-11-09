@@ -1,7 +1,7 @@
-import 'package:bekjan/src/utils/utils.dart';
-import 'package:bekjan/src/variables/language.dart';
-import 'package:bekjan/src/variables/util_variables.dart';
-import 'package:bekjan/src/widgets/PickerWidget.dart';
+import 'package:app/src/utils/utils.dart';
+import 'package:app/src/variables/language.dart';
+import 'package:app/src/variables/util_variables.dart';
+import 'package:app/src/widgets/PickerWidget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../helpers/apptheme.dart';

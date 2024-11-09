@@ -1,4 +1,4 @@
-import 'package:bekjan/src/variables/language.dart';
+import 'package:app/src/variables/language.dart';
 import 'package:location/location.dart';
 
 PositionManeger? _positionManeger;
