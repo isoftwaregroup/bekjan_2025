@@ -9,17 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0f97aeb-7de0-4cd2-a7cc-ec292f59dfad" name="Changes" comment="fixasw">
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/key.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/key.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/ui/home_page/dialog/search_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/ui/home_page/dialog/search_bar.dart" afterDir="false" />
-    </list>
+    <list default="true" id="d0f97aeb-7de0-4cd2-a7cc-ec292f59dfad" name="Changes" comment="fixaswwew" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,6 +24,7 @@
         <option value="davlatovnizomjon &lt;theofficialdavlatovnizomjon@mail.ru&gt;" />
       </list>
     </option>
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -107,7 +98,23 @@
       <option name="project" value="LOCAL" />
       <updated>1735989624738</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fixasw">
+      <option name="closed" value="true" />
+      <created>1736743978234</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1736743978234</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fixaswwew">
+      <option name="closed" value="true" />
+      <created>1736744083541</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736744083541</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,7 +132,9 @@
     <MESSAGE value="changes" />
     <MESSAGE value="fix" />
     <MESSAGE value="fixas" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixas" />
+    <MESSAGE value="fixasw" />
+    <MESSAGE value="fixaswwew" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixaswwew" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
