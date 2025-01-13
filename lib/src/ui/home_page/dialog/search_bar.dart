@@ -16,7 +16,7 @@ import 'package:pinput/pinput.dart';
 
 import '../provider/map_provider.dart';
 
-List<String> resultDatas = [];
+
 
 class AdressBar extends StatefulWidget {
   AdressBar({super.key});
