@@ -111,9 +111,7 @@ class Counter with ChangeNotifier {
   void update() {
     notifyListeners();
   }
-  void fun(){
-    var just = '';
-  }
+
 
 
   Future searchPlaces({String value = ''}) async{
