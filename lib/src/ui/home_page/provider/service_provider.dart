@@ -113,7 +113,6 @@ class Counter with ChangeNotifier {
   }
 
 
-
   Future searchPlaces({String value = ''}) async{
     MainModel result = await client.get('${Links.searchPlaces}$value');
     try {
