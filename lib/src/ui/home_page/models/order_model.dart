@@ -2,6 +2,22 @@ import 'package:app/src/ui/home_page/models/service_model.dart';
 
 import 'marker_model.dart';
 
+
+// var t = [
+//   {
+//     "id": 590245,
+//     "address1": "Level 36, 37 & 38, Menara Etiqa, Jalan Bangsar Utama 1 Kuala Lumpur",
+//     "address2": "-",
+//     "comment": "",
+//     "mode": {"number": 1, "name": "Standart"},
+//     "status": {"number": 6, "name": "Bekor qilingan"},
+//     "type": {"number": 3, "name": "Mobil dastur"},
+//     "services": [],
+//     "history": null,
+//     "link_column": null,
+//     "created_at": {"timestamp": 1729156069, "datetime": "Oct 17, 2024y 14:07:49"}
+//   }
+// ];
 class OrderModel {
   OrderModel({
     required this.id,
@@ -20,6 +36,7 @@ class OrderModel {
     required this.status,
     required this.type,
     required this.history,
+    required this.linkColumn,
   });
 
   String id;
@@ -32,6 +49,7 @@ class OrderModel {
   String address2;
   String cost;
   String? comment;
+  String linkColumn;
   String datetime;
   List<SericeModel> services;
   CarModel mode;
@@ -39,8 +57,10 @@ class OrderModel {
   CarModel type;
   HistoryModel? history;
 
+
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         id: json['id'] == null ? '' : json['id'].toString(),
+        linkColumn: json['link_column'].toString(),
         mode_id: json['mode_id'] == null ? '' : json['mode_id'].toString(),
         latitude1: double.tryParse(json['latitude1'].toString()) ?? 0,
         longitude1: double.tryParse(json['longitude1'].toString()) ?? 0,
@@ -189,3 +209,5 @@ class CarModel {
             json['color']?['code'] == null ? '' : '${json['color']?['code']}',
       );
 }
+
+

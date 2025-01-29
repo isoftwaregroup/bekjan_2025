@@ -261,6 +261,7 @@ Color _getItemColor(CarModel status) {
 class OrderDialog extends StatelessWidget {
   final OrderModel data;
   final index;
+
   const OrderDialog({super.key, required this.data, required this.index});
 
   @override
@@ -544,6 +545,23 @@ class OrderDialog extends StatelessWidget {
                     ),
                   ],
                 ),
+              order.linkColumn != 'null'
+                  ? GestureDetector(
+                      onTap: () async {
+                        if (!await launchUrl(Uri.parse(order.linkColumn),
+                            mode: LaunchMode.externalApplication)) {
+                          throw 'Could not launch $num';
+                        }
+                      },
+                      child: Text(
+                        'Chekni yuklab olish',
+                        style: theme.textStyle.copyWith(
+                            fontSize: 18.o,
+                            fontWeight: FontWeight.w500,
+                            color: theme.blue),
+                      ),
+                    )
+                  : SizedBox.shrink(),
               Text(
                 thisOrder.tr,
                 style: theme.textStyle.copyWith(
